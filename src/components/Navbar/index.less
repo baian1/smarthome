@@ -1,0 +1,48 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  background: rgb(190, 160, 218);
+  height: 4rem;
+  width: 100%;
+
+  &-bottom {
+    height: 4rem;
+    width: 100%;
+    display: inline-block;
+    &+.navbar{
+      position: absolute;
+    }
+  }
+
+  &-left,
+  &-title,
+  &-right {
+    flex: 1;
+    flex-direction: row;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &-left {
+    justify-content: flex-start;
+  }
+
+  &-title {
+    font-size: 1.5rem;
+    justify-content: center;
+  }
+
+  &-right {
+    justify-content: flex-end;
+  }
+
+  &-button {
+    height: 60%;
+    width: 5rem;
+    margin-right: 1rem;
+    border: 0;
+    padding: 0;
+    outline: 0;
+  }
+}

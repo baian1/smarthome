@@ -11,6 +11,9 @@
   "license": "ISC",
   "devDependencies": {
     "@types/animejs": "^2.0.2",
+    "@types/react": "^16.8.18",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.8",
     "@types/react-router-dom": "^4.3.3",
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^2.0.2",
@@ -26,12 +29,12 @@
     "webpack-dev-server": "^3.4.1"
   },
   "dependencies": {
-    "@types/react": "^16.8.18",
-    "@types/react-dom": "^16.8.4",
     "animejs": "^3.0.1",
     "antd-mobile": "^2.2.13",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0"
+    "react-redux": "^7.0.3",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1"
   }
 }

@@ -1,0 +1,49 @@
+@prefix: card;
+
+
+.@{prefix} {
+  &-wrap {
+    width: 95%;
+    height: 15rem;
+    border-radius: 1rem;
+    border: 0.05rem solid;
+    margin: 1rem 0rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  &-left,
+  &-right {
+    flex: 1;
+    display: flex;
+    border: 1px solid;
+    flex-direction: column;
+  }
+
+  &-content-center{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  &-left {
+    &-up {
+      flex: 1;
+    }
+
+    &-down {
+      flex: 1;
+    }
+  }
+
+  &-right {
+    &-up {
+      flex: 1;
+    }
+
+    &-down {
+      flex: 1;
+    }
+  }
+}
