@@ -1,17 +1,17 @@
 import React, { Props } from "react";
-import Root from "../../components/root";
+import withRoot from "../../components/root";
 import Navbar from "../../components/Navbar";
 import Card from "../../components/Card";
 
 
-function DeviceList(props: Props<{}>) {
+function DeviceList(props: Props<{}>): JSX.Element {
   return (
     <>
-      <Navbar title="devices"/>
-      <Card/>
+      <Navbar title="devices" />
+      <Card />
       {props.children}
     </>
   )
 }
 
-export default Root(DeviceList,'start');
+export default withRoot(DeviceList, 'start');

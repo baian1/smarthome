@@ -2,38 +2,38 @@ import React, { Props, RefObject } from "react";
 import "./card.less"
 import anime from "animejs";
 
-interface P extends Props<{}>{
-  handleOnClick?:React.MouseEventHandler<HTMLDivElement>;
+interface P extends Props<{}> {
+  handleOnClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const prefix = 'card';
 const contentCenter = `${prefix}-content-center`;
 
 class Card extends React.PureComponent<P> {
-  card:RefObject<HTMLDivElement>;
+  protected card: RefObject<HTMLDivElement>;
 
-  constructor(props:P){
+  public constructor(props: P) {
     super(props);
-    this.card=React.createRef();
+    this.card = React.createRef();
   }
 
-  handleAction=(event:React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
+  public handleAction = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
     anime({
-      targets:this.card.current,
-      scale:2,
-      opacity:{
-        value:0,
-        easing:'linear'
+      targets: this.card.current,
+      scale: 2,
+      opacity: {
+        value: 0,
+        easing: 'linear'
       },
-      duration:800,
-    }).finished.then(()=>{
-      if(this.props.handleOnClick){
+      duration: 800,
+    }).finished.then((): void => {
+      if (this.props.handleOnClick) {
         this.props.handleOnClick(event);
       }
     })
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <div ref={this.card} className={`${prefix}-wrap`} onClick={this.handleAction}>
         <div className={`${prefix}-left`}>

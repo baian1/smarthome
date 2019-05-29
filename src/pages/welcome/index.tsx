@@ -1,7 +1,7 @@
-import React, { Component, MouseEvent, Props } from 'react';
+import React, { Component, Props } from 'react';
 import './welcome.less';
 import anime from 'animejs'
-import Root from '../../components/root'
+import withRoot from '../../components/root'
 import { History } from 'history';
 
 interface P extends Props<{}> {
@@ -9,16 +9,16 @@ interface P extends Props<{}> {
 }
 
 class Welcome extends Component<P> {
-  title: React.RefObject<HTMLDivElement>
-  button: React.RefObject<HTMLButtonElement>
+  private title: React.RefObject<HTMLDivElement>
+  private button: React.RefObject<HTMLButtonElement>
 
-  constructor(props: P) {
+  public constructor(props: P) {
     super(props);
     this.title = React.createRef();
     this.button = React.createRef();
   }
 
-  hangdlestart = () => {
+  public hangdlestart = (): void => {
     anime({
       targets: this.button.current,
       opacity: 0,
@@ -30,12 +30,13 @@ class Welcome extends Component<P> {
         value: 0,
         easing: "linear"
       },
-    }).finished.then(() => {
-      console.log("跳转到登入页面/设备页面");
+    }).finished.then((): void => {
+      // console.log("跳转到登入页面/设备页面");
       this.props.history.push('/login')
     })
   }
-  render() {
+
+  public render(): JSX.Element {
     return (
       <>
         <div ref={this.title} className='title'>
@@ -48,4 +49,4 @@ class Welcome extends Component<P> {
   }
 }
 
-export default Root(Welcome);
+export default withRoot(Welcome);

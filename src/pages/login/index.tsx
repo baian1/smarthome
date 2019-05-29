@@ -1,6 +1,6 @@
 import React, { Component, Props } from 'react';
 import './login.less';
-import Root from '../../components/root';
+import withRoot from '../../components/root';
 import { History } from 'history';
 
 interface P extends Props<{}> {
@@ -9,11 +9,11 @@ interface P extends Props<{}> {
 
 class Login extends Component<P> {
 
-  handleGoDeviceList=()=>{
+  public handleGoDeviceList = (): void => {
     this.props.history.push('/devicelist');
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <>
         <div className='input-wrap'>
@@ -28,4 +28,4 @@ class Login extends Component<P> {
   }
 }
 
-export default Root(Login);
+export default withRoot(Login);

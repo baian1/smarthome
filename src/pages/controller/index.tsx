@@ -1,32 +1,31 @@
 import Navbar from "../../components/Navbar";
 import React, { Props } from "react";
 import { History } from "history";
-import { Root } from "../../components/root/root";
+import { withRoot } from "../../components/root/root";
 
 interface P extends Props<{}> {
-  history: History
+  history: History;
 }
 
 class Controllor extends React.Component<P>{
-  constructor(props: P) {
+  public constructor(props: P) {
     super(props);
   }
 
-  handleGoBack = () => {
+  public handleGoBack = (): void => {
     this.props.history.goBack();
   }
 
-  render() {
+  public render(): JSX.Element {
     return (
       <>
         <Navbar title='controllor' onLeftClick={this.handleGoBack} />
         <div>
           <input />
         </div>
-
       </>
     )
   }
 }
 
-export default Root(Controllor, 'start');
+export default withRoot(Controllor, 'start');
