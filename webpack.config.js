@@ -45,6 +45,20 @@ module.exports = {
   },
   devServer: {
     contentBase: './',
-    historyApiFallback: true
+    historyApiFallback: true,
+    port: 8080,
+    proxy: {
+      "/api": {
+        target: 'http://123.207.96.7:3000',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true
+      },
+    },
+  },
+  externals: {
+    'react': 'React', // Case matters here 
+    'react-dom': 'ReactDOM', // Case matters here 
+    'react-router-dom': 'ReactRouterDOM',
+    'amap-js-sdk': 'AMap'
   },
 }

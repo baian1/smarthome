@@ -6,11 +6,15 @@
   width: 100%;
 
   &-bottom {
+    flex-shrink: 0;
     height: 4rem;
     width: 100%;
     display: inline-block;
-    &+.navbar{
-      position: absolute;
+
+    &+.navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
     }
   }
 

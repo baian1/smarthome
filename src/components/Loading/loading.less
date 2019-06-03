@@ -1,0 +1,51 @@
+@prefix: loading;
+
+.@{prefix} {
+  &-wrap {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 2;
+  }
+
+  &-hiddle {
+    display: none;
+  }
+
+  &-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    width: 8rem;
+    height: 8rem;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  &-loading {
+    width: 60%;
+    animation: rotate 1s;
+    animation-iteration-count: infinite;
+  }
+
+  &-text {
+    color: #dbdbdb;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

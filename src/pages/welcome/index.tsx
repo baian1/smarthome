@@ -3,6 +3,7 @@ import './welcome.less';
 import anime from 'animejs'
 import withRoot from '../../components/root'
 import { History } from 'history';
+import { httpUser } from '../../api/http';
 
 interface P extends Props<{}> {
   history: History;
@@ -18,7 +19,7 @@ class Welcome extends Component<P> {
     this.button = React.createRef();
   }
 
-  public hangdlestart = (): void => {
+  public hangdlestart = async () => {
     anime({
       targets: this.button.current,
       opacity: 0,
@@ -30,9 +31,15 @@ class Welcome extends Component<P> {
         value: 0,
         easing: "linear"
       },
-    }).finished.then((): void => {
+    }).finished.then(async () => {
       // console.log("跳转到登入页面/设备页面");
-      this.props.history.push('/login')
+      let res = await httpUser.checkToken();
+      if(res===false){
+        this.props.history.push('/login')
+      }else{
+        this.props.history.push('/devicelist')
+      }
+      
     })
   }
 

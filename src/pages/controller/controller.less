@@ -1,0 +1,52 @@
+@prefix: controller;
+@line-height: 3.5rem;
+
+.@{prefix} {
+  &-wrap {
+    width: 90%;
+  }
+
+  &-name {
+    height: @line-height;
+    display: flex;
+    margin: 1rem 0;
+    font-size: @line-height/2;
+    line-height: @line-height;
+
+    &-notsharik {
+      flex-shrink: 0;
+    }
+  }
+
+  &-input {
+    margin-left: 10px;
+    flex: 1;
+    font-size: @line-height/2;
+    display: flex;
+    width: 1px;
+
+    & .@{prefix}-text {
+      width: 200px;
+      flex-grow: 1;
+      overflow-x: scroll;
+      white-space: nowrap;
+    }
+  }
+
+  &-deleteButton {
+    width: 90%;
+    margin: 0;
+    outline: 0;
+    border: 0;
+    border-radius: 1rem;
+    background-color: rgb(228, 39, 39);
+    height: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  &-foot {
+    height: 2rem;
+    flex-shrink: 0;
+    width: 1px;
+  }
+}
