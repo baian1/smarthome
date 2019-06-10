@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar";
 import Card from "../../components/Card";
 import { DevicesInterface, sensorType } from "../../redux/interface/devices.interface";
 import { History } from "history";
-import { startMQTT } from "../../api/mqtt";
+import { startMQTT, disconnectMQTT } from "../../api/mqtt";
 
 interface P extends Props<{}> {
   history: History;
@@ -26,6 +26,10 @@ class DeviceList extends React.Component<P>{
     await this.props.initDevice();
     startMQTT();
   }
+
+  // public async componentWillUnmount() {
+  //   disconnectMQTT();
+  // }
 
   public handleGoController = (device: DevicesInterface) => {
     this.props.history.push('/controller', {

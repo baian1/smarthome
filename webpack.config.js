@@ -3,20 +3,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: {
+    main: './src/index.tsx',
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
   devtool: 'inline-source-map',
   output: {
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].bundle.js',
     path: path.join(__dirname, '/dist'),
-    filename: '[name].build.js'
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: ['awesome-typescript-loader']
+        loader: ['ts-loader']
       },
       {
         test: /\.less$/,
@@ -35,12 +38,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './index.html',
+      chunksSortMode: 'none'
     })
   ],
   optimization: {
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      minChunks: 2
     }
   },
   devServer: {
@@ -56,9 +61,9 @@ module.exports = {
     },
   },
   externals: {
-    'react': 'React', // Case matters here 
-    'react-dom': 'ReactDOM', // Case matters here 
-    'react-router-dom': 'ReactRouterDOM',
+    // 'react': 'React', // Case matters here 
+    // 'react-dom': 'ReactDOM', // Case matters here 
+    // 'react-router-dom': 'ReactRouterDOM',
     'amap-js-sdk': 'AMap'
   },
 }

@@ -35,6 +35,9 @@ function onConnectionLost(responseObject: MQTT.MQTTError) {
   if (responseObject.errorCode !== 0) {
     console.log("onConnectionLost:" + responseObject.errorMessage);
   }
+  if(client!==null){
+    client.connect();
+  }
 }
 
 // called when a message arrives
@@ -58,7 +61,7 @@ const createMQTTClient = async (devicesList: string[], userID: string) => {
   client = new MQTT.Client("fogmonth.xyz", 443, '/mqttwss', userID);
 
   const option = {
-    timeout: 5,
+    timeout: 10,
     onSuccess: onConnect.bind(null, client, devicesList),
     onFailure: onFailure,
     reconnect: true,
@@ -86,5 +89,12 @@ export const startMQTT = () => {
     createMQTTClient(devicesList, user);
   } else {
     console.log("Mqtt is exists")
+  }
+}
+
+export const disconnectMQTT = () => {
+  if (client !== null) {
+    client.disconnect();
+    client = null;
   }
 }
