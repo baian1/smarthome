@@ -129,7 +129,7 @@ export async function login(userID: string, password: string): Promise<string | 
     } else if (response.status === 401) {
       throw new Error('账号密码错误');
     } else if (response.status !== 200) {
-      throw new Error("其他错误");
+      throw new Error("服务器错误");
     }
     return true;
   } catch (error) {

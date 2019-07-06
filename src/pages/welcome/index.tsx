@@ -34,15 +34,14 @@ class Welcome extends Component<P> {
     }).finished.then(async () => {
       // console.log("跳转到登入页面/设备页面");
       let res = await httpUser.checkToken();
-      if(res===false){
+      if (res === false) {
         this.props.history.push('/login')
-      }else{
+      } else {
         this.props.history.push('/devicelist')
       }
-      
     })
   }
-
+  
   public render(): JSX.Element {
     return (
       <>
@@ -50,7 +49,9 @@ class Welcome extends Component<P> {
           <p>Welcome</p>
           <p>Smart home</p>
         </div>
-        <button ref={this.button} className='start-button' onClick={this.hangdlestart}>start</button>
+        <button ref={this.button} className='start-button' onClick={this.hangdlestart}>
+          start
+        </button>
       </>
     )
   }

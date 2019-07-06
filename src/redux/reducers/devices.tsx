@@ -30,17 +30,26 @@ const devices = (state: DevicesInterface[] = [], action: deviceActionType): Devi
       return action.devicesList;
     case 'SET_NORMAL':
       return state.map((item): DevicesInterface => {
-        if (item.deviceID === action.id && action.sensor !== undefined) {
+        if (item.deviceID === action.id) {
           item.data[action.sensor].status = 'normal';
         }
         return item;
       });
     case 'CHANGE_DEVICE_SENSOR':
       return state.map((item): DevicesInterface => {
-        if (item.deviceID === action.id && action.sensor !== undefined && action.param !== undefined) {
-          item.data[action.sensor] = { ...item.data[action.sensor], ...action.param };
+        if (item.deviceID === action.id) {
+          switch (action.sensor) {
+            case 'Infrared Sensor':
+            case 'Shock Sensor':
+              item.data[action.sensor] = { ...item.data[action.sensor], ...action.param };
+              break;
+            case 'Smoke Sensor':
+              item.data[action.sensor] = { ...item.data[action.sensor], ...action.param };
+              break;
+            default:
+          }
         }
-        return {...item};
+        return item;
       });
     case 'DELET_DEVICE_FROM_CARD':
       state.some((item, index): boolean => {

@@ -1,19 +1,19 @@
-import { setNormal, saveDevice, getDevice, getDeviceInit, changeDeviceSensor, deleteDeviceFromCard, deleteDevice as deleteDeviceById, saveDeviceInformation, setSensorNormal } from './device';
-import { addDevice, saveDevicesList, deleteDevice, saveToken, saveUserID } from './user';
+import { setNormal, saveDevice, getDevice, getDeviceInit, changeDeviceSensor, deleteDeviceFromCard } from './device';
+import { addDevice, saveDevicesList, deleteDevice, saveToken, saveUserID} from './user';
+
 
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
+type GetAllAction<T> = {
+  [P in keyof T]: ReturnType<T[P]>;
+}[keyof T]
 
-export const userAction = { addDevice, saveDevicesList, deleteDevice };
-export type userActionType = ReturnType<typeof userAction.addDevice>
-| ReturnType<typeof userAction.saveDevicesList>
-| ReturnType<typeof userAction.deleteDevice>
-| ReturnType<typeof saveToken>
-| ReturnType<typeof saveUserID>
+//user相关的action
+export const userAction = { addDevice, saveDevicesList, deleteDevice, saveToken, saveUserID };
+export type userActionType = GetAllAction<typeof userAction>
 
-export const deviceAction = { getDevice, getDeviceInit, changeDeviceSensor, deleteDeviceById, saveDeviceInformation, setSensorNormal };
-export type deviceActionType = ReturnType<typeof setNormal>
-| ReturnType<typeof saveDevice>
-| ReturnType<typeof getDevice>
-| ReturnType<typeof getDeviceInit>
-| ReturnType<typeof changeDeviceSensor>
-| ReturnType<typeof deleteDeviceFromCard>
+//device相关的action
+export const deviceAction = { getDevice, getDeviceInit, changeDeviceSensor, setNormal, saveDevice, deleteDeviceFromCard };
+export type deviceActionType = GetAllAction<typeof deviceAction>
+
+//所有action
+export type AllAction = deviceActionType | userActionType

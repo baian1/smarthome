@@ -6,13 +6,14 @@ import Welcome from './pages/welcome'
 // import Devicelist from './pages/devicelist';
 // import Controller from './pages/controller';
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootStore from './redux/reducers';
+import thunk, { ThunkMiddleware } from 'redux-thunk';
+import rootStore, { AppStateInterface } from './redux/reducers';
 import { Provider } from 'react-redux';
 import { StaticContext } from 'react-router';
 import AsyncComponent from './pages';
+import { AllAction } from './redux/action';
 
-export const store = createStore(rootStore, applyMiddleware(thunk));
+export const store = createStore(rootStore, applyMiddleware(thunk as ThunkMiddleware<AppStateInterface, AllAction>));
 
 function LoadingPlaceholder(): JSX.Element {
   return (
@@ -31,10 +32,10 @@ class App extends React.Component {
               <Route path='/devicelist' component={Devicelist} />
               <Route path='/controller' component={Controller} />
               <Route path='/' component={Welcome} /> */}
-              <Route path='/login' render={(props: RouteComponentProps<any, StaticContext, any>) => <AsyncComponent componentName='Login' {...props}/>} />
-              <Route path='/devicelist' render={(props: RouteComponentProps<any, StaticContext, any>) => <AsyncComponent componentName='Devicelist' {...props}/>} />
-              <Route path='/controller' render={(props: RouteComponentProps<any, StaticContext, any>) => <AsyncComponent componentName='Controller' {...props}/>} />
-              <Route path='/' component={Welcome} />
+              <Route path='/login' render={(props: RouteComponentProps<{}, StaticContext, any>) => <AsyncComponent componentName='Login' {...props} />} />
+              <Route path='/devicelist' render={(props: RouteComponentProps<{}, StaticContext, any>) => <AsyncComponent componentName='Devicelist' {...props} />} />
+              <Route path='/controller' render={(props: RouteComponentProps<{}, StaticContext, any>) => <AsyncComponent componentName='Controller' {...props} />} />
+              <Route path='/wellcome' component={Welcome} />
             </Switch>
           </Suspense>
         </Route>

@@ -1,10 +1,5 @@
 import { userActionType } from "../action";
-
-export interface UserInterface {
-  id: string;
-  token: string;
-  devices: string[];
-}
+import { UserInterface } from "../interface/user.interface";
 
 const userInit = {
   id: 'sad',

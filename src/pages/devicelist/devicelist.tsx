@@ -2,9 +2,9 @@ import React, { Props } from "react";
 import withRoot from "../../components/root";
 import Navbar from "../../components/Navbar";
 import Card from "../../components/Card";
-import { DevicesInterface, sensorType } from "../../redux/interface/devices.interface";
+import { DevicesInterface, sensorType, SmokeInfraredShockSensorInterface } from "../../redux/interface/devices.interface";
 import { History } from "history";
-import { startMQTT, disconnectMQTT } from "../../api/mqtt";
+import { startMQTT } from "../../api/mqtt";
 
 interface P extends Props<{}> {
   history: History;
@@ -13,7 +13,7 @@ interface P extends Props<{}> {
   devices: DevicesInterface[];
   saveDevicesList: () => Promise<string[]>;
   initDevice: () => Promise<void>;
-  changeDeviceSensor: (devicesID: string, sensor: sensorType, param: {}) => void;
+  changeDeviceSensor: (devicesID: string, sensor: sensorType, param: SmokeInfraredShockSensorInterface) => void;
 }
 
 class DeviceList extends React.Component<P>{

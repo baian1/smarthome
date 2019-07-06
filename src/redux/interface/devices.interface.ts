@@ -1,19 +1,24 @@
 export type sensorType = 'Infrared Sensor' | 'Shock Sensor' | 'Smoke Sensor';
 
-export interface SmokeSensorInterface {
+export interface BaseSensorInterface {
   "status": "normal" | "danger";
   "on/off": "on" | "off";
+}
+
+export interface SmokeSensorInterface extends BaseSensorInterface {
   'concentration': number;
 }
 
-export interface InfraredSensorInterface {
-  "status": "normal" | "danger";
-  "on/off": "on" | "off";
+export interface InfraredSensorInterface extends BaseSensorInterface {
 }
 
-export interface ShockSensorInterface {
+export interface ShockSensorInterface extends BaseSensorInterface {
+}
+
+export interface SmokeInfraredShockSensorInterface {
   "status": "normal" | "danger";
   "on/off": "on" | "off";
+  'concentration'?: number;
 }
 
 export interface TemperatureAndHumiditySensor {

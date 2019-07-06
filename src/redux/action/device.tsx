@@ -1,10 +1,11 @@
-import { DevicesInterface, sensorType } from "../interface/devices.interface";
+import { DevicesInterface, sensorType, SmokeInfraredShockSensorInterface } from "../interface/devices.interface";
 import { ThunkAction } from "redux-thunk";
 import { AppStateInterface } from "../reducers";
 import { Action } from "redux";
 import { httpDevice, httpUser } from "../../api/http";
-import { userAction, deviceAction } from ".";
+import { userAction } from ".";
 
+//不需要进行网络请求的动作
 export const setNormal = (devicesID: string, sensor: sensorType) => {
   return {
     type: 'SET_NORMAL',
@@ -18,7 +19,7 @@ export const getDevice = (devicesID: string) => ({
   id: devicesID,
 } as const)
 
-export const changeDeviceSensor = (devicesID: string, sensor: sensorType, param: {}) => ({
+export const changeDeviceSensor = (devicesID: string, sensor: sensorType, param: SmokeInfraredShockSensorInterface) => ({
   type: 'CHANGE_DEVICE_SENSOR',
   id: devicesID,
   sensor,
@@ -41,6 +42,8 @@ export const deleteDeviceFromCard = (deviceID: string) => ({
   id: deviceID,
 } as const);
 
+
+//async dispatch
 export const initDevicelist = (): ThunkAction<Promise<void>, AppStateInterface, null, Action<string>> => {
   return async (dispatch): Promise<void> => {
     let devicesList = await httpDevice.getDeviceFromList();

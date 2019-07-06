@@ -26,5 +26,6 @@ module.exports = {
     "react/jsx-uses-vars": 1,
     "@typescript-eslint/indent": [2, 2, { "SwitchCase": 1 }],
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-empty-interface":0
   }
 };

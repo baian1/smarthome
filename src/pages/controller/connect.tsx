@@ -1,14 +1,17 @@
-import { deviceAction } from "../../redux/action";
 import { DevicesInterface, sensorType } from "../../redux/interface/devices.interface";
 import { connect } from 'react-redux';
 import { Controller } from './controller'
+import { deleteDevice, setSensorNormal, saveDeviceInformation } from "../../redux/action/device";
+import { AppStateInterface } from "../../redux/reducers";
+import { ThunkDispatch } from "redux-thunk";
+import { AllAction } from "../../redux/action";
 
 
-export const mapDispatchToProps = (dispatch: Function) => {
+export const mapDispatchToProps = (dispatch: ThunkDispatch<AppStateInterface,null,AllAction>) => {
   return {
-    saveDevicesInformation: (data: DevicesInterface): Promise<boolean> => dispatch(deviceAction.saveDeviceInformation(data)),
-    setDeviceSensorStatuToNormal: (id: string, sensor: sensorType): Promise<boolean> => dispatch(deviceAction.setSensorNormal(id, sensor)),
-    deleteDevice: (id: string): Promise<boolean> => dispatch(deviceAction.deleteDeviceById(id)),
+    saveDevicesInformation: (data: DevicesInterface) => dispatch(saveDeviceInformation(data)),
+    setDeviceSensorStatuToNormal: (id: string, sensor: sensorType) => dispatch(setSensorNormal(id, sensor)),
+    deleteDevice: (id: string) => dispatch(deleteDevice(id)),
   }
 }
 

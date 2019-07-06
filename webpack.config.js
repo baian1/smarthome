@@ -14,6 +14,7 @@ module.exports = {
     filename: '[name].[hash].js',
     chunkFilename: '[name].bundle.js',
     path: path.join(__dirname, '/dist'),
+    publicPath:'/'
   },
   module: {
     rules: [
@@ -57,7 +58,7 @@ module.exports = {
         target: 'http://123.207.96.7:3000',
         pathRewrite: { '^/api': '' },
         changeOrigin: true
-      },
+      }
     },
   },
   externals: {

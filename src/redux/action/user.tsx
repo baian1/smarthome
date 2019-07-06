@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { Action } from "redux";
 import { httpUser } from "../../api/http";
 import { AppStateInterface } from "../reducers";
+import { AllAction } from ".";
 
+//不需要进行网络请求的动作
 export const addDevice = (deviceID: string) => ({
   type: "ADD_DEVICE",
   deviceID: deviceID,
@@ -28,7 +29,9 @@ export const saveDevicesList = (devicesList: string[]) => ({
   devicesList,
 } as const)
 
-export const login = (userID: string, passWord: string): ThunkAction<Promise<boolean>, AppStateInterface, null, Action<string>> => {
+
+//async dispatch
+export const login = (userID: string, passWord: string): ThunkAction<Promise<boolean>, AppStateInterface, null, AllAction> => {
   return async (dispatch): Promise<boolean> => {
     let token = await httpUser.login(userID, passWord)
     if (typeof token === 'string') {
@@ -40,7 +43,7 @@ export const login = (userID: string, passWord: string): ThunkAction<Promise<boo
   }
 }
 
-export const getUserDeviceList = (): ThunkAction<Promise<string[]>, AppStateInterface, null, Action<string>> => {
+export const getUserDeviceList = (): ThunkAction<Promise<string[]>, AppStateInterface, null, AllAction> => {
   return async (dispatch): Promise<string[]> => {
     let devicesList = await httpUser.getDevices();
     if (typeof devicesList !== 'boolean') {
