@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { httpUser } from "../../api/http";
+import { httpUser } from "api/http";
 import { AppStateInterface } from "../reducers";
 import { AllAction } from ".";
 

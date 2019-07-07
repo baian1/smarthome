@@ -1,10 +1,10 @@
 import React, { Props } from "react";
-import withRoot from "../../components/root";
-import Navbar from "../../components/Navbar";
-import Card from "../../components/Card";
-import { DevicesInterface, sensorType, SmokeInfraredShockSensorInterface } from "../../redux/interface/devices.interface";
+import withRoot from "components/root";
+import Navbar from "components/Navbar";
+import Card from "components/Card";
+import { DevicesInterface, sensorType, SmokeInfraredShockSensorInterface } from "redux/interface/devices.interface";
 import { History } from "history";
-import { startMQTT } from "../../api/mqtt";
+import { startMQTT } from "api/mqtt";
 
 interface P extends Props<{}> {
   history: History;

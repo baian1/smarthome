@@ -1,8 +1,8 @@
-import { DevicesInterface, sensorType, SmokeInfraredShockSensorInterface } from "../interface/devices.interface";
+import { DevicesInterface, sensorType, SmokeInfraredShockSensorInterface } from "interface/devices.interface";
 import { ThunkAction } from "redux-thunk";
 import { AppStateInterface } from "../reducers";
 import { Action } from "redux";
-import { httpDevice, httpUser } from "../../api/http";
+import { httpDevice, httpUser } from "api/http";
 import { userAction } from ".";
 
 //不需要进行网络请求的动作

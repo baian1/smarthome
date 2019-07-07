@@ -1,10 +1,10 @@
-import { DevicesInterface, sensorType } from "../../redux/interface/devices.interface";
+import { DevicesInterface, sensorType } from "redux/interface/devices.interface";
 import { connect } from 'react-redux';
 import { Controller } from './controller'
-import { deleteDevice, setSensorNormal, saveDeviceInformation } from "../../redux/action/device";
-import { AppStateInterface } from "../../redux/reducers";
+import { deleteDevice, setSensorNormal, saveDeviceInformation } from "redux/action/device";
+import { AppStateInterface } from "redux/reducers";
 import { ThunkDispatch } from "redux-thunk";
-import { AllAction } from "../../redux/action";
+import { AllAction } from "redux/action";
 
 
 export const mapDispatchToProps = (dispatch: ThunkDispatch<AppStateInterface,null,AllAction>) => {

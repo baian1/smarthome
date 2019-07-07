@@ -1,6 +1,6 @@
 import React, { Props, useState, useCallback, useRef } from 'react';
 import './login.less';
-import withRoot from '../../components/root';
+import withRoot from 'components/root';
 import { History } from 'history';
 
 interface P extends Props<{}> {

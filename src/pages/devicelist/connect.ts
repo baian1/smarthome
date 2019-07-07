@@ -1,10 +1,10 @@
-import { AppStateInterface } from "../../redux/reducers";
-import { deviceAction, AllAction } from "../../redux/action";
-import { sensorType, SmokeInfraredShockSensorInterface } from "../../redux/interface/devices.interface";
+import { AppStateInterface } from "redux/reducers";
+import { deviceAction, AllAction } from "redux/action";
+import { sensorType, SmokeInfraredShockSensorInterface } from "redux/interface/devices.interface";
 import { connect } from 'react-redux';
 import DevicesList from './devicelist'
-import { initDevicelist } from "../../redux/action/device";
-import { getUserDeviceList } from "../../redux/action/user";
+import { initDevicelist } from "redux/action/device";
+import { getUserDeviceList } from "redux/action/user";
 import { ThunkDispatch } from "redux-thunk";
 
 

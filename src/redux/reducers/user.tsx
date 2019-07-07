@@ -1,5 +1,5 @@
 import { userActionType } from "../action";
-import { UserInterface } from "../interface/user.interface";
+import { UserInterface } from "interface/user.interface";
 
 const userInit = {
   id: 'sad',

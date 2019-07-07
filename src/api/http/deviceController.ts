@@ -1,6 +1,6 @@
 import { newFetch as fetch } from './newFetch';
 import { BASE_URL } from "./config";
-import { DevicesInterface } from '../../redux/interface/devices.interface';
+import { DevicesInterface } from 'redux/interface/devices.interface';
 import { store } from '../../APP';
 
 export async function getDeviceFromList() {

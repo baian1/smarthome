@@ -1,5 +1,5 @@
 import AMap from 'amap-js-sdk';
-import { AddressLocation } from '../../redux/interface/devices.interface';
+import { AddressLocation } from 'redux/interface/devices.interface';
 
 let geolocation: AMap.Geolocation;
 let mapObj: AMap.Map | undefined;

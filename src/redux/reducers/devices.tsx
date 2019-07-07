@@ -1,4 +1,4 @@
-import { DevicesInterface } from "../interface/devices.interface";
+import { DevicesInterface } from "interface/devices.interface";
 import { deviceActionType } from "../action";
 
 // const deviceinit: DevicesInterface = {

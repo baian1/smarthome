@@ -1,16 +1,16 @@
-import Navbar from "../../components/Navbar";
+import Navbar from "components/Navbar";
 import React, { Props, useState, useEffect, useCallback, useReducer, useMemo } from "react";
 import { History, Location } from "history";
-import { withRoot } from "../../components/root/root";
+import { withRoot } from "components/root/root";
 
 import './controller.less'
-import { AutoOnOff, AddressLocation as Address, DevicesInterface, sensorType, SensorInterface } from "../../redux/interface/devices.interface";
+import { AutoOnOff, AddressLocation as Address, DevicesInterface, sensorType, SensorInterface } from "redux/interface/devices.interface";
 import { Part, Data } from "./controllerpart";
-import Alert from '../../components/alert';
+import Alert from 'components/alert';
 import WhiteSpace from 'antd-mobile/lib/white-space'
-import { Reset, switchOnOff } from "../../api/mqtt/send";
-import { load, getPosition } from '../../api/map'
-import Loading from "../../components/Loading/Loading";
+import { Reset, switchOnOff } from "api/mqtt/send";
+import { load, getPosition } from 'api/map'
+import Loading from "components/Loading/Loading";
 
 interface P extends Props<{}> {
   history: History;
