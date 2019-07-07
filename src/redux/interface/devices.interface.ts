@@ -33,7 +33,12 @@ export interface SensorInterface {
   "Smoke Sensor": SmokeSensorInterface;
 }
 
-export interface Location {
+export interface AutoOnOff {
+  address: AddressLocation;
+  "on/off": "on" | "off";
+}
+
+export interface AddressLocation {
   latitude?: number; // 经度
   longitude?: number; // 纬度
   address?: string; // 详细地址
@@ -50,8 +55,5 @@ export interface DevicesInterface {
   "deviceID": string;
   "name": string;
   "data": SensorInterface;
-  "autoOnOff": {
-    address: Location;
-    "on/off": "on" | "off";
-  };
+  "autoOnOff": AutoOnOff;
 }

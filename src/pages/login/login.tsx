@@ -1,4 +1,4 @@
-import React, { Component, Props, ChangeEvent } from 'react';
+import React, { Props, useState, useCallback, useRef } from 'react';
 import './login.less';
 import withRoot from '../../components/root';
 import { History } from 'history';
@@ -8,61 +8,41 @@ interface P extends Props<{}> {
   login(userID: string, password: string): Promise<boolean>;
 }
 
-interface S {
-  userID: string;
-  passWord: string;
-}
 
-class Login extends Component<P, S> {
-  public Loading = false;
-  public constructor(props: P) {
-    super(props);
-    this.state = {
-      userID: '',
-      passWord: ''
-    }
-  }
+function Login(props: P) {
+  const [userID, setUserID] = useState('')
+  const [passWord, setPassWord] = useState('')
+  const Loading = useRef(false)
 
-  public handleGoDeviceList = (): void => {
-    if (this.Loading === true) {
-      alert("不要频繁操作");
-      return;
-    }
-    this.Loading = true;
-    this.props.login(this.state.userID, this.state.passWord).then((value: boolean) => {
-      if (value === true) {
-        this.props.history.push('/devicelist');
+  const handleGoDeviceList = useCallback(
+    (userID: string, passWord: string) => {
+      if (Loading.current === true) {
+        alert("不要频繁操作");
+        return;
       }
-      this.Loading = false;
-      return;
-    });
-  }
+      Loading.current = true;
+      props.login(userID, passWord).then((value: boolean) => {
+        if (value === true) {
+          props.history.push('/devicelist');
+        }
+        Loading.current = false;
+        return;
+      });
+      console.log(userID, passWord)
+    }, []
+  )
 
-  public handleChangeUserID = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      userID: event.target.value
-    })
-  }
-
-  public handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      passWord: event.target.value
-    })
-  }
-
-  public render(): JSX.Element {
-    return (
-      <>
-        <div className='input-wrap'>
-          <p>账号(userid):</p>
-          <input type='text' className='input' onChange={this.handleChangeUserID} value={this.state.userID} />
-          <p>密码(password):</p>
-          <input type='text' className='input' onChange={this.handleChangePassword} value={this.state.passWord}/>
-        </div>
-        <button className='button-login' onClick={this.handleGoDeviceList}>Login</button>
-      </>
-    );
-  }
+  return (
+    <>
+      <div className='input-wrap'>
+        <p>账号(userid):</p>
+        <input type='text' className='input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setUserID(e.target.value)}} value={userID} />
+        <p>密码(password):</p>
+        <input type="password" className='input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassWord(e.target.value) }} />
+      </div>
+      <button className='button-login' onClick={() => handleGoDeviceList(userID, passWord)}>Login</button>
+    </>
+  )
 }
 let LoginRoor = withRoot(Login)
 export { LoginRoor as Login };

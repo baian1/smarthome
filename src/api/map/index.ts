@@ -1,10 +1,14 @@
 import AMap from 'amap-js-sdk';
-import { Location } from '../../redux/interface/devices.interface';
+import { AddressLocation } from '../../redux/interface/devices.interface';
 
 let geolocation: AMap.Geolocation;
-let mapObj: any;
+let mapObj: AMap.Map | undefined;
+
 export async function load() {
   function loadMap() {
+    if (mapObj !== undefined) {
+      return;
+    }
     mapObj = new AMap.Map('iCenter');
     mapObj.plugin('AMap.Geolocation', function () {
       geolocation = new AMap.Geolocation({
@@ -20,7 +24,7 @@ export async function load() {
         panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
         zoomToAccuracy: true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
       });
-      mapObj.addControl(geolocation);
+      (mapObj as AMap.Map).addControl(geolocation);
     });
   }
   // var url = 'https://webapi.amap.com/maps?v=1.4.14&key=b15278a411c3c418799315efe939b534';
@@ -32,7 +36,7 @@ export async function load() {
   loadMap();
 }
 
-export async function getPosition(): Promise<Location> {
+export async function getPosition(): Promise<AddressLocation> {
   if (geolocation !== undefined) {
     try {
       let res: AMap.GeolocationResult;
