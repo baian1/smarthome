@@ -1,6 +1,6 @@
 import { newFetch as fetch } from './newFetch';
 import { BASE_URL } from "./config";
-import { DevicesInterface } from 'redux/interface/devices.interface';
+import { DevicesInterface } from 'rootstate/interface/devices.interface';
 import { store } from '../../APP';
 
 export async function getDeviceFromList() {
@@ -10,6 +10,9 @@ export async function getDeviceFromList() {
   }//如果列表是空直接返回;
   try {
     const response = await fetch(`${BASE_URL}/device/DeviceList?id=${JSON.stringify(devicesList)}`)
+    if (response.status === 401) {
+      throw new Error("登入超时，请重新登入");
+    }
     if (response.status !== 200) {
       throw new Error("获取数据错误");
     }
@@ -28,6 +31,9 @@ export async function getDeviceFromList() {
     return change;
   } catch (e) {
     alert(e.message);
+    if(e.message==="登入超时，请重新登入"){
+      return null
+    }
     return [];
   }
 }
