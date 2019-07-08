@@ -31,7 +31,7 @@ function Part({ title, data, mode = 'button' }: P) {
         if (buttontimer === true) {
           return;
         }
-        handle();
+        (async()=>{handle()})();
         buttontimer = true;
         let elemet: HTMLButtonElement = event.target as HTMLButtonElement;
         anime({

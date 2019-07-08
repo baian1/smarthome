@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { httpUser } from "api/http";
 import { AppStateInterface } from "../reducers";
-import { AllAction } from ".";
+import { AllAction } from "../action";
 
 //不需要进行网络请求的动作
 export const addDevice = (deviceID: string) => ({

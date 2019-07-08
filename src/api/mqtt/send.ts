@@ -1,6 +1,6 @@
 import MQTT from "paho-mqtt";
 import { client } from './index';
-import { sensorType } from "redux/interface/devices.interface";
+import { sensorType } from "rootstate/interface/devices.interface";
 
 export function switchOnOff(deviceID: string, sensor: sensorType, onoff: 'on' | 'off') {
   if (client === null) {

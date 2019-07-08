@@ -7,14 +7,20 @@ module.exports = {
     main: './src/index.tsx',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      "api": path.resolve(__dirname, "src/api"),
+      "components": path.resolve(__dirname, "src/components"),
+      "interface": path.resolve(__dirname, "src/redux/interface"),
+      "rootstate": path.resolve(__dirname, "src/state"),
+    }
   },
   devtool: 'inline-source-map',
   output: {
     filename: '[name].[hash].js',
     chunkFilename: '[name].bundle.js',
     path: path.join(__dirname, '/dist'),
-    publicPath:'/'
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -33,7 +39,13 @@ module.exports = {
           },
           { loader: 'less-loader' }
         ]
-      }
+      },
+      // {
+      //   test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+      //   use: [
+      //     'url-loader?limit=100000'
+      //   ]
+      // }
     ]
   },
   plugins: [

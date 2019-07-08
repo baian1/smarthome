@@ -1,7 +1,7 @@
 import MQTT from "paho-mqtt";
 import { store } from "../../APP";
-import { deviceAction } from "redux/action";
-import { sensorType } from "redux/interface/devices.interface";
+import { deviceAction } from "rootstate/action";
+import { sensorType } from "rootstate/interface/devices.interface";
 
 // Create a client instance
 export let client: MQTT.Client | null = null;

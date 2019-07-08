@@ -7,11 +7,11 @@ import Welcome from './pages/welcome'
 // import Controller from './pages/controller';
 import { createStore, applyMiddleware } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
-import rootStore, { AppStateInterface } from './redux/reducers';
+import rootStore, { AppStateInterface } from './state/reducers';
 import { Provider } from 'react-redux';
 import { StaticContext } from 'react-router';
 import AsyncComponent from './pages';
-import { AllAction } from './redux/action';
+import { AllAction } from './state/action';
 
 export const store = createStore(rootStore, applyMiddleware(thunk as ThunkMiddleware<AppStateInterface, AllAction>));
 

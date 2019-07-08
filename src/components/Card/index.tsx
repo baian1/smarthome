@@ -1,7 +1,7 @@
 import React, { Props, RefObject } from "react";
 import "./card.less"
 import anime from "animejs";
-import { DevicesInterface, SensorInterface } from "redux/interface/devices.interface";
+import { DevicesInterface, SensorInterface } from "rootstate/interface/devices.interface";
 
 interface P extends Props<{}> {
   device: DevicesInterface;
