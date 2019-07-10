@@ -1,4 +1,4 @@
-import React, { Props, useState, useCallback, useRef } from 'react';
+import React, { Props, useState, useCallback, useRef, useEffect } from 'react';
 import './login.less';
 import withRoot from 'components/root';
 import { History } from 'history';
@@ -8,11 +8,11 @@ interface P extends Props<{}> {
   login(userID: string, password: string): Promise<boolean>;
 }
 
-
 function Login(props: P) {
   const [userID, setUserID] = useState('')
   const [passWord, setPassWord] = useState('')
   const Loading = useRef(false)
+  const isSetWindowHeight = useRef(false)
 
   const handleGoDeviceList = useCallback(
     (userID: string, passWord: string) => {
@@ -32,11 +32,31 @@ function Login(props: P) {
     }, []
   )
 
+  useEffect(() => {
+    return () => {
+      if (isSetWindowHeight.current === true) {
+        let root = document.querySelector('#root') as HTMLDivElement
+        root.removeAttribute('style')
+      }
+    };
+  }, [])
+
   return (
     <>
-      <div className='input-wrap'>
+      <div className='input-wrap'
+        onFocusCapture={(e) => {
+          if (isSetWindowHeight.current === false) {
+            let root = document.querySelector('#root') as HTMLDivElement
+            root.setAttribute('style', `height:${window.innerHeight}px`)
+            isSetWindowHeight.current = true
+          }
+          e.target.scrollIntoView({
+            block: 'end'
+          })
+        }}
+      >
         <p>账号(userid):</p>
-        <input type='text' className='input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setUserID(e.target.value)}} value={userID} />
+        <input type='text' className='input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setUserID(e.target.value) }} value={userID} />
         <p>密码(password):</p>
         <input type="password" className='input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassWord(e.target.value) }} />
       </div>
