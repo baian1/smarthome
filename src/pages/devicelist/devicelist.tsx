@@ -1,4 +1,4 @@
-import React, { Props } from "react";
+import React, { Props, useEffect, useCallback, useMemo } from "react";
 import withRoot from "components/root";
 import Navbar from "components/Navbar";
 import Card from "components/Card";
@@ -8,56 +8,53 @@ import { startMQTT } from "api/mqtt";
 
 interface P extends Props<{}> {
   history: History;
-  userID: string;
-  devicesList: string[];
   devices: DevicesInterface[];
   getDevicesList: () => Promise<string[]>;
   initDevice: () => Promise<boolean>;
   changeDeviceSensor: (devicesID: string, sensor: sensorType, param: SmokeInfraredShockSensorInterface) => void;
 }
 
-class DeviceList extends React.Component<P>{
-  public constructor(props: P) {
-    super(props);
-  }
+function DeviceList({ history, "devices": Alldevices, ...props }: P) {
 
-  public async componentDidMount() {
-    await this.props.getDevicesList();
-    let res = await this.props.initDevice();
-    if (res === false) {
-      this.props.history.push('/login')
+  useEffect(() => {
+    async function init() {
+      await props.getDevicesList();
+      let res = await props.initDevice();
+      if (res === false) {
+        history.push('/login')
+      }
+      startMQTT();
     }
-    startMQTT();
-  }
+    init()
+    // return () => {
+    //   disconnectMQTT();
+    // };
+  }, [Alldevices.length])
 
-  // public async componentWillUnmount() {
-  //   disconnectMQTT();
-  // }
+  const handleGoController = useCallback(
+    (device: DevicesInterface) => {
+      history.push('/controller', {
+        ...device
+      })
+    }, [history])
 
-  public handleGoController = (device: DevicesInterface) => {
-    this.props.history.push('/controller', {
-      ...device
-    })
-  }
-
-  public render(): JSX.Element {
-
-    let cardList: JSX.Element[] = [];
-    if (this.props.devices.length === 0) {
-      cardList = [];
+  const cardList = useMemo(() => {
+    if (Alldevices.length === 0) {
+      return []
     } else {
-      cardList = this.props.devices.map((item) => {
-        return <Card device={item} key={item.deviceID} handleOnClick={this.handleGoController} />
+      return Alldevices.map((item) => {
+        return <Card device={item} key={item.deviceID} handleOnClick={handleGoController} />
       });
     }
+  }, [Alldevices])
 
-    return (
-      <>
-        <Navbar title="设备管理" />
-        {cardList}
-      </>
-    )
-  }
+  return (
+    <>
+      <Navbar title="设备管理" />
+      {cardList}
+    </>
+  )
+
 }
 
 export default withRoot(DeviceList, 'start');

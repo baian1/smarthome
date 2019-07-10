@@ -12,14 +12,9 @@ import { Provider } from 'react-redux';
 import { StaticContext } from 'react-router';
 import AsyncComponent from './pages';
 import { AllAction } from './state/action';
+import LoadingPlaceholder from './pages/LoadingPlaceholder';
 
 export const store = createStore(rootStore, applyMiddleware(thunk as ThunkMiddleware<AppStateInterface, AllAction>));
-
-function LoadingPlaceholder(): JSX.Element {
-  return (
-    <>Loading...</>
-  )
-}
 
 class App extends React.Component {
   public render(): JSX.Element {

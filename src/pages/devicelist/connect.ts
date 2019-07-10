@@ -10,8 +10,6 @@ import { ThunkDispatch } from "redux-thunk";
 
 const mapStateToProps = (state: AppStateInterface) => {
   return {
-    userID: state.user.id ? state.user.id : '',
-    devicesList: state.user.devices,
     devices: state.devices,
   }
 }
