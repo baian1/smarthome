@@ -27,15 +27,6 @@ function loadMap() {
   });
 }
 
-export async function load() {
-  if (AMap === undefined) {
-    createAMap();
-  } else {
-    loadMap();
-  }
-  // loadMap();
-}
-
 function createAMap() {
   let url = 'https://webapi.amap.com/maps?v=1.4.14&key=b15278a411c3c418799315efe939b534';
   let jsapi = document.createElement('script');
@@ -43,6 +34,15 @@ function createAMap() {
   jsapi.src = url;
   jsapi.addEventListener("load", load);
   document.head.appendChild(jsapi);
+}
+
+export async function load() {
+  if (AMap === undefined) {
+    createAMap();
+  } else {
+    loadMap();
+  }
+  // loadMap();
 }
 
 export async function getPosition(): Promise<AddressLocation> {
@@ -54,7 +54,10 @@ export async function getPosition(): Promise<AddressLocation> {
           if (status === 'complete') {
             resolve(result);
           } else {
-            reject('获取信息失败');
+            if (result.message === "Geolocation permission denied.") {
+              reject('没有定位权限');
+            }
+            reject('定位失败');
           }
         });
       });

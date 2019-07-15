@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/index.tsx',
+    main: './src/index.tsx'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -24,6 +24,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader' }
+      },
       {
         test: /\.tsx?$/,
         loader: ['ts-loader']

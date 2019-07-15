@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import { user as userReducer } from './user';
-import { devices as deviceReducer } from './devices';
+import { user as userReducer } from './user'
+import { devices as deviceReducer } from './devices'
 
 let appState = combineReducers({
   user: userReducer,

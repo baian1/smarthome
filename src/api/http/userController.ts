@@ -31,11 +31,9 @@ export const ApiAddDevice = async (userID: string, deviceID: string) => {
   let status = false;
   let time = 0;
   while (!status) {
-    await new Promise((resolve) => {
-      setTimeout(async () => {
-        status = await addDevice(body);
-        resolve();
-      }, 1000)
+    await new Promise(async (resolve) => {
+      status = await addDevice(body);
+      resolve();
     })
     time++;
     if (time > 10) {
@@ -79,7 +77,7 @@ export async function deleteDevice(deviceID: string | string[]) {
   }
 }
 
-export async function getDevices(): Promise<boolean|string[]> {
+export async function getDevices(): Promise<boolean | string[]> {
   const userID = await User.get('id');
   try {
     const response = await newFetch(`${BASE_URL}/user/getDevicesList?userID=${userID}`, {

@@ -53,6 +53,18 @@ export const getUserDeviceList = (): ThunkAction<Promise<string[]>, AppStateInte
     return [];
   }
 }
+
+export const addUserDevice = (user: string, device: string): ThunkAction<Promise<boolean>, AppStateInterface, null, AllAction> => {
+  return async (dispatch): Promise<boolean> => {
+    let res = await httpUser.ApiAddDevice(user, device)
+    if (res === true) {
+      dispatch(addDevice(device))
+      return true
+    } else {
+      return false
+    }
+  }
+}
 // function exampleAPI() {
 //   return Promise.resolve('Async Chat Bot')
 // }
