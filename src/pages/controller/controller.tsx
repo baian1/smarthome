@@ -58,10 +58,10 @@ function geographyReducer(state: AutoOnOff, action: geographyAction) {
   switch (action.type) {
     case "CHANGE_AUTO_ALARM_STATUS":
       state["on/off"] = state["on/off"] === 'on' ? 'off' : 'on'
-      return {...state}
+      return { ...state }
     case "CHANGE_ADDRESS":
       state.address = action.address
-      return {...state}
+      return { ...state }
     default:
       throw new Error('geographyReducer error')
   }
@@ -157,13 +157,16 @@ function Controllor({ "location": { state }, history, setDeviceSensorStatuToNorm
   }, [])
   //删除设备
   const handleDeleteDevice = useCallback(async () => {
-    let res = await deleteDevice(state.deviceID);
-    if (res === true) {
-      history.push('/devicelist');
-      Reset(state.deviceID);
-    } else {
-      alert('删除出错');
+    async function goDevicelist() {
+      let res = await deleteDevice(state.deviceID);
+      if (res === true) {
+        history.push('/devicelist');
+        Reset(state.deviceID);
+      } else {
+        alert('删除出错');
+      }
     }
+    goDevicelist()
   }, [state.deviceID])
 
   //三个模块SensorToNormalPart，SensorSwitchPart
