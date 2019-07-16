@@ -50,7 +50,7 @@ function DeviceList({ history, "devices": Alldevices, ...props }: P) {
 
   return (
     <>
-      <Navbar title="设备管理" />
+      <Navbar title="设备管理" rightContent={'添加设备'} onrightClick={() => { history.replace('/addDevice') }} />
       {cardList}
     </>
   )
