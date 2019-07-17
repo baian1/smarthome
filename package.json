@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "browserslist": [
+    "last 2 version",
+    "> 2%"
+  ],
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --open"
@@ -20,6 +24,7 @@
     "@types/redux-thunk": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
+    "autoprefixer": "^9.6.1",
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^2.0.2",
     "css-loader": "^2.1.1",
@@ -30,7 +35,11 @@
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-plugin": "^1.0.0",
     "style-loader": "^0.23.1",
+    "sugarss": "^2.0.0",
     "ts-loader": "^6.0.2",
     "typescript": "^3.4.5",
     "webpack": "^4.32.1",

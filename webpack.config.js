@@ -41,7 +41,12 @@ module.exports = {
           {
             loader: 'css-loader',
           },
-          { loader: 'less-loader' }
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: 'less-loader'
+          }
         ]
       },
       // {
