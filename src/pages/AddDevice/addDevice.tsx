@@ -1,7 +1,7 @@
-import React, { useContext } from "react"
+import React, { useContext, useCallback } from "react"
 import { __RouterContext } from "react-router"
-import { QrReader } from "components/QrReader/qrReader";
-import { History } from "history";
+import QrReader from "components/QrReader"
+import { History } from "history"
 
 function useHistory() {
   const contextValue = useContext(__RouterContext)
@@ -33,8 +33,16 @@ function AddDevice(props: P) {
     wait = false
   }
 
+  const onFail=useCallback(
+    () => {
+      alert('设备缺少相机')
+      history.replace('/devicelist')
+    },
+    [],
+  )
+
   return (
-    <QrReader onSuccess={onSuccess} />
+    <QrReader onSuccess={onSuccess} onFail={onFail}/>
   )
 }
 
