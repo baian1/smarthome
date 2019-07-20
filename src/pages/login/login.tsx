@@ -9,8 +9,8 @@ interface P extends Props<{}> {
 }
 
 function Login(props: P) {
-  const [userID, setUserID] = useState('')
-  const [passWord, setPassWord] = useState('')
+  const [userID, setUserID] = useState('mike')
+  const [passWord, setPassWord] = useState('mike')
   const Loading = useRef(false)
   const isSetWindowHeight = useRef(false)
 
@@ -58,7 +58,7 @@ function Login(props: P) {
         <p>账号(userid):</p>
         <input type='text' className='input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setUserID(e.target.value) }} value={userID} />
         <p>密码(password):</p>
-        <input type="password" className='input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassWord(e.target.value) }} />
+        <input type="password" className='input' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassWord(e.target.value) }} value={passWord}/>
       </div>
       <button className='button-login' onClick={() => handleGoDeviceList(userID, passWord)}>Login</button>
     </>

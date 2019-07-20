@@ -7,7 +7,6 @@ import './controller.less'
 import { AutoOnOff, AddressLocation as Address, DevicesInterface, sensorType, SensorInterface } from "rootstate/interface/devices.interface";
 import { Part, Data } from "./controllerpart";
 import Alert from 'components/alert';
-import WhiteSpace from 'antd-mobile/lib/white-space'
 import { Reset, switchOnOff } from "api/mqtt/send";
 import { load, getPosition } from 'api/map'
 import Loading from "components/Loading/Loading";
@@ -227,7 +226,6 @@ function Controllor({ "location": { state }, history, setDeviceSensorStatuToNorm
       <Part title="清除警报" data={sensorToNormalPart} mode="button" />
       <Part title="警报器开关" data={sensorSwitchPart} mode='switch' />
       <Part title="地址控制" data={addressPart} />
-      <WhiteSpace size="lg" />
       <button className={`${prefix}-deleteButton`} onClick={() => {
         Alert('Delete', '确定要删除设备吗?', [
           { text: 'Cancel' },
