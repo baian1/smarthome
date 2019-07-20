@@ -1,10 +1,10 @@
 import React, { lazy } from 'react';
 
-const Controller = lazy(() => import(/* webpackChunkName: "Controller" */ './Controller'));
-const Devicelist = lazy(() => import(/* webpackChunkName: "Devicelist" */ './Devicelist'));
-const Login = lazy(() => import(/* webpackChunkName: "Login" */ './Login'));
-const AddDevice = lazy(() => import(/* webpackChunkName: "AddDevice" */'./AddDevice'));
-// const Welcome = lazy(() => import(/* webpackChunkName: "Welcome" */ './Welcome'));
+const Controller = lazy(() => import(/* webpackPrefetch: true, webpackChunkName: "Controller" */ './Controller'));
+const Devicelist = lazy(() => import(/* webpackPrefetch: true,webpackChunkName: "Devicelist" */ './Devicelist'));
+const Login = lazy(() => import(/* webpackPrefetch: true,webpackChunkName: "Login" */ './Login'));
+const AddDevice = lazy(() => import(/* webpackPrefetch: true,webpackChunkName: "AddDevice" */'./AddDevice'));
+// const Welcome = lazy(() => import(/* webpackPrefetch: true,webpackChunkName: "Welcome" */ './Welcome'));
 
 const Components = {
   Controller,
