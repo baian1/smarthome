@@ -8,12 +8,13 @@ interface QREvent extends MessageEvent {
   };
 }
 
-// Worker.ts
-const ctx: Worker = self as any;
 
-ctx.addEventListener('message', function (e: QREvent) {
+declare var self: Worker;
+// Worker.ts
+
+self.addEventListener('message', function (e: QREvent) {
   let data = jsQR(e.data.image, e.data.width, e.data.height)
   if (data !== null) {
-    ctx.postMessage(data.data)
+    self.postMessage(data.data)
   }
 })
