@@ -27,4 +27,4 @@ class Loading extends React.Component<P> {
 
 }
 
-export default Loading;
+export default React.memo(Loading);

@@ -51,7 +51,6 @@ function QrReader(props: P) {
       width: 200,
       height: 200,
     })
-    console.log('fafaf')
   }
 
   useEffect(() => {
@@ -93,6 +92,7 @@ function QrReader(props: P) {
     let timer=setInterval(getImage, 500)
     return ()=>{
       clearInterval(timer)
+      worker.terminate()
     }
   })
 
@@ -111,4 +111,6 @@ function QrReader(props: P) {
   )
 }
 
-export { QrReader }
+const pureQrReader=React.memo(QrReader)
+
+export { pureQrReader as QrReader }
