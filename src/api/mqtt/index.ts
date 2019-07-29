@@ -5,11 +5,32 @@ import { sensorType } from "rootstate/interface/devices.interface";
 
 // Create a client instance
 export let client: MQTT.Client | null = null;
+let subTopicDeviceID: string[] = []
 
-function sub(client: MQTT.Client, devicesList: string[]) {
-  devicesList.forEach((item) => {
-    client.subscribe(`devices/${item}/#`);
-  })
+async function sub(client: MQTT.Client, devicesList: string[]) {
+  if (client.isConnected() === false) {
+    console.log("wait conncet")
+    setTimeout(() => {
+      sub(client, devicesList)
+    }, 1000)
+  }
+
+  let update = false
+
+  for (let i = 0; i < devicesList.length; i++) {
+    let item = devicesList[i]
+    if (subTopicDeviceID.indexOf(item) === -1) {
+      update = true
+      subTopicDeviceID.push(item)
+      client.subscribe(`devices/${item}/#`)
+    }
+  }
+
+  if (update === true) {
+    console.log("update")
+  } else {
+    console.log("is old")
+  }
 }
 
 // called when the client connects
@@ -35,7 +56,7 @@ function onConnectionLost(responseObject: MQTT.MQTTError) {
   if (responseObject.errorCode !== 0) {
     console.log("onConnectionLost:" + responseObject.errorMessage);
   }
-  if(client!==null){
+  if (client !== null) {
     client.connect();
   }
 }
@@ -58,7 +79,7 @@ function onMessageArrived(message: MQTT.Message) {
 }
 
 const createMQTTClient = async (devicesList: string[], userID: string) => {
-  client = new MQTT.Client("fogmonth.xyz", 443, '/mqttwss', userID);
+  client = new MQTT.Client("smarthome.fogmonth.xyz", 443, '/mqttwss', userID);
 
   const option = {
     timeout: 10,
@@ -84,11 +105,14 @@ const createMQTTClient = async (devicesList: string[], userID: string) => {
 
 export const startMQTT = () => {
   if (client === null) {
-    const devicesList = store.getState().user.devices;
-    const user = store.getState().user.id;
-    createMQTTClient(devicesList, user);
+    const devicesList = store.getState().user.devices
+    const user = store.getState().user.id
+    console.log("Creat Mqtt Client")
+    createMQTTClient(devicesList, user)
   } else {
     console.log("Mqtt is exists")
+    console.log("sub updating")
+    sub(client, store.getState().user.devices)
   }
 }
 
