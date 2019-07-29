@@ -14,7 +14,8 @@
   ],
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "start": "webpack-dev-server --open --config webpack.dev.js"
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "check size": "bundlesize"
   },
   "author": "",
   "license": "ISC",
