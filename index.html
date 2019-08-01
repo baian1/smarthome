@@ -12,11 +12,15 @@
   <div id="root">
 
   </div>
+  <script>
+    //webpack打包后,使用script加载的脚本,设置好变量,防止全局模块module.exports=XXX没找到而报错
+    var AMap = {}
+  </script>
   <!-- <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.0.0/react-router-dom.js"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/paho-mqtt@1.1.0/paho-mqtt.min.js"></script> -->
-  <script src=" https://webapi.amap.com/maps?v=1.4.14&key=b15278a411c3c418799315efe939b534" defer></script>
+  <!-- <script src="https://webapi.amap.com/maps?v=1.4.14&key=b15278a411c3c418799315efe939b534"></script> -->
   <!-- <script>
     let amapload = false
     window.addEventListener("load", () => {
