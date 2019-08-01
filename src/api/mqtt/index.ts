@@ -13,6 +13,7 @@ async function sub(client: MQTT.Client, devicesList: string[]) {
     setTimeout(() => {
       sub(client, devicesList)
     }, 1000)
+    return
   }
 
   let update = false
