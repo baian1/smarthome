@@ -1,6 +1,7 @@
 import { AddressLocation } from 'rootstate/interface/devices.interface';
 import AMap from 'amap-js-sdk';
 import { loadAMap, isLoadAMap } from './loadAmap';
+import { convertGPStoAMap } from './util';
 
 let geolocation: AMap.Geolocation;
 let mapObj: AMap.Map;
@@ -21,7 +22,7 @@ export async function load() {
       }
       geolocation = new AMap.Geolocation({
         enableHighAccuracy: true,//是否使用高精度定位，默认:true
-        timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+        timeout: 3000,          //超过3秒后停止定位，默认：无穷大
         maximumAge: 0,           //定位结果缓存0毫秒，默认：0
         convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
         showButton: true,        //显示定位按钮，默认：true
@@ -37,13 +38,15 @@ export async function load() {
   }
 }
 
-export async function getPosition(): Promise<AddressLocation> {
+export async function getPosition() {
+  let resInformation: AddressLocation | null = null
   if (geolocation !== undefined) {
     try {
       let res: AMap.GeolocationResult;
       res = await new Promise((resolve, reject) => {
         geolocation.getCurrentPosition((status, result) => {
           if (status === 'complete') {
+            console.log(result)
             resolve(result);
           } else {
             if (result.message === "Geolocation permission denied.") {
@@ -54,28 +57,44 @@ export async function getPosition(): Promise<AddressLocation> {
         });
       });
 
-      let address = await fetch(`https://restapi.amap.com/v3/geocode/regeo?output=JSON&location=${res.position.toString()}&key=b15278a411c3c418799315efe939b534&radius=1000`, {
-        method: "GET",
-      }).then((value) => {
-        return value.json();
-      }).then((value) => {
-        let data = {
-          longitude: res.position.getLng(),
-          altitude: res.position.getLat(),
-          address: value.regeocode.formatted_address,
+      let lnglats: {
+        lng: number;
+        lat: number;
+      }|null
+      if (!res.isConverted) {
+        lnglats = await convertGPStoAMap(res.position.getLng(), res.position.getLat())
+      } else {
+        lnglats = {
+          lng: res.position.getLng(),
+          lat: res.position.getLat()
         }
-        return data;
-      })
+      }
 
-      console.log(address);
-      return address;
+      if (lnglats !== null) {
+        let lng = lnglats.lng
+        let lat = lnglats.lat
+        let address = await fetch(`https://restapi.amap.com/v3/geocode/regeo?output=JSON&location=${lng},${lat}&key=b15278a411c3c418799315efe939b534&radius=30`, {
+          method: "GET",
+        }).then((value) => {
+          return value.json();
+        }).then((value) => {
+          let data = {
+            longitude: lng,
+            latitude: lat,
+            address: value.regeocode.formatted_address,
+          }
+          return data;
+        })
+
+        resInformation = address;
+      } else {
+        throw new Error("坐标转换失败")
+      }
     } catch (e) {
       console.log(e);
-      return {};
     }
-
   } else {
     alert('等待加载组件');
-    return {};
   }
+  return resInformation
 }

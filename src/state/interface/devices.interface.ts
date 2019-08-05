@@ -39,8 +39,8 @@ export interface AutoOnOff {
 }
 
 export interface AddressLocation {
-  latitude?: number; // 经度
-  longitude?: number; // 纬度
+  latitude: number; // 经度
+  longitude: number; // 纬度
   address?: string; // 详细地址
   country?: string; // 国家
   province?: string; // 省份

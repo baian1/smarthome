@@ -115,7 +115,7 @@ function Controllor({ "location": { state }, history, setDeviceSensorStatuToNorm
     const handleGetAndSaveAddress = async () => {
       setLoading((loading) => !loading)
       let address = await getPosition();
-      if (address.address !== undefined) {
+      if (address !== null) {
         geographyDispatch({
           type: 'CHANGE_ADDRESS',
           address
