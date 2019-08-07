@@ -1,3 +1,3 @@
-import AddDevice from "./connect";
+import AddDevice from "./connect"
 
-export default AddDevice;
+export default AddDevice

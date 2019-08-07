@@ -10,8 +10,8 @@ function useHistory() {
 }
 
 interface P {
-  userID: string;
-  addUserDevice: (user: string, device: string) => Promise<boolean>;
+  userID: string
+  addUserDevice: (user: string, device: string) => Promise<boolean>
 }
 
 let wait = false
@@ -26,24 +26,19 @@ function AddDevice(props: P) {
     wait = true
     let res = await props.addUserDevice(props.userID, device)
     if (res === false) {
-      alert('二维码错误')
+      alert("二维码错误")
     } else {
-      history.replace('/devicelist')
+      history.replace("/devicelist")
     }
     wait = false
   }
 
-  const onFail=useCallback(
-    () => {
-      alert('设备缺少相机')
-      history.replace('/devicelist')
-    },
-    [],
-  )
+  const onFail = useCallback(() => {
+    alert("设备缺少相机")
+    history.replace("/devicelist")
+  }, [])
 
-  return (
-    <QrReader onSuccess={onSuccess} onFail={onFail}/>
-  )
+  return <QrReader onSuccess={onSuccess} onFail={onFail} />
 }
 
 export { AddDevice }

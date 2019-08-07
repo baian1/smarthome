@@ -1,11 +1,11 @@
-import React, { RefObject, useEffect } from 'react'
-import './qrReader.less'
+import React, { RefObject, useEffect } from "react"
+import "./qrReader.less"
 
 interface P {
-  box: number;
+  box: number
 }
 
-const prefix = 'qrReader'
+const prefix = "qrReader"
 let canvas: RefObject<HTMLCanvasElement> = React.createRef()
 
 function QrReaderCover({ box }: P) {
@@ -17,9 +17,9 @@ function QrReaderCover({ box }: P) {
     if (canvas.current === null) {
       return
     }
-    canvas.current.setAttribute('height', `${height}`)
-    canvas.current.setAttribute('width', `${width}`)
-    let ctx = canvas.current.getContext('2d') as CanvasRenderingContext2D
+    canvas.current.setAttribute("height", `${height}`)
+    canvas.current.setAttribute("width", `${width}`)
+    let ctx = canvas.current.getContext("2d") as CanvasRenderingContext2D
 
     ctx.fillStyle = "rgba(0,0,0,0.4)"
 
@@ -41,11 +41,20 @@ function QrReaderCover({ box }: P) {
     ctx.strokeStyle = "rgba(23, 342, 34, 1)"
     function drawL(angle: number) {
       ctx.save()
-      ctx.rotate(angle / 360 * 2 * Math.PI)
+      ctx.rotate((angle / 360) * 2 * Math.PI)
       ctx.beginPath()
-      ctx.moveTo(box / 2 + distanceBetweenLinesAndBox, box / 2 + distanceBetweenLinesAndBox - lineLength)
-      ctx.lineTo(box / 2 + distanceBetweenLinesAndBox, box / 2 + distanceBetweenLinesAndBox)
-      ctx.lineTo(box / 2 + distanceBetweenLinesAndBox - lineLength, box / 2 + distanceBetweenLinesAndBox)
+      ctx.moveTo(
+        box / 2 + distanceBetweenLinesAndBox,
+        box / 2 + distanceBetweenLinesAndBox - lineLength
+      )
+      ctx.lineTo(
+        box / 2 + distanceBetweenLinesAndBox,
+        box / 2 + distanceBetweenLinesAndBox
+      )
+      ctx.lineTo(
+        box / 2 + distanceBetweenLinesAndBox - lineLength,
+        box / 2 + distanceBetweenLinesAndBox
+      )
       ctx.stroke()
       ctx.closePath()
       ctx.restore()

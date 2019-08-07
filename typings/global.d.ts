@@ -1,7 +1,7 @@
 declare global {
   interface Window {
-    AMap: any;
-    test: number;
+    AMap: any
+    test: number
   }
 }
-export { }
+export {}

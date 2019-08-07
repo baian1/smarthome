@@ -1,3 +1,3 @@
-import deviceList from './connect';
+import deviceList from "./connect"
 
-export default deviceList;
+export default deviceList

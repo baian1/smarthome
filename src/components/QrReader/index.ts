@@ -1,3 +1,3 @@
-import {QrReader} from './qrReader'
+import { QrReader } from "./qrReader"
 
 export default QrReader

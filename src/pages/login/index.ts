@@ -1,2 +1,2 @@
-import Login from './connect';
-export default Login;
+import Login from "./connect"
+export default Login
