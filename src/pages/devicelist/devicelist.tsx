@@ -46,7 +46,7 @@ const DeviceList: React.SFC<P> = ({
   const handleGoController = useCallback(
     (device: DevicesInterface) => {
       history.push("/controller", {
-        ...device,
+        ...JSON.parse(JSON.stringify(device)),
       })
     },
     [history]

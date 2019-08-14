@@ -21,7 +21,7 @@ export interface Data {
 
 const prefix = "controllerpart"
 
-function Part({ title, data, mode = "button" }: P) {
+function BasePart({ title, data, mode = "button" }: P) {
   const handleOnClick = useCallback((handle: () => void) => {
     let buttontimer: boolean
     buttontimer = false
@@ -81,7 +81,7 @@ function Part({ title, data, mode = "button" }: P) {
           return null
       }
     })
-  }, [data])
+  }, [data, handleOnClick, mode])
 
   return (
     <div className={`${prefix}-wrap`}>
@@ -90,5 +90,5 @@ function Part({ title, data, mode = "button" }: P) {
     </div>
   )
 }
-const PurePart = React.memo(Part)
-export { PurePart as Part }
+const PurePart = React.memo(BasePart)
+export { PurePart as BasePart }
