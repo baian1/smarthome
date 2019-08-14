@@ -1,5 +1,4 @@
 import React, { Props, useEffect, useCallback, useMemo } from "react"
-import withRoot from "components/root"
 import Navbar from "components/Navbar"
 import Card from "components/Card"
 import {
@@ -22,13 +21,19 @@ interface P extends Props<{}> {
   ) => void
 }
 
-function DeviceList({ history, devices: Alldevices, ...props }: P) {
+const DeviceList: React.SFC<P> = ({
+  history,
+  devices: Alldevices,
+  ...props
+}: P) => {
   useEffect(() => {
     async function init() {
-      await props.getDevicesList()
-      let res = await props.initDevice()
-      if (res === false) {
-        history.push("/login")
+      if (Alldevices.length === 0) {
+        await props.getDevicesList()
+        let res = await props.initDevice()
+        if (res === false) {
+          history.push("/login")
+        }
       }
       startMQTT()
     }
@@ -36,7 +41,7 @@ function DeviceList({ history, devices: Alldevices, ...props }: P) {
     // return () => {
     //   disconnectMQTT();
     // };
-  }, [Alldevices.length])
+  }, [Alldevices.length, history, props])
 
   const handleGoController = useCallback(
     (device: DevicesInterface) => {
@@ -61,7 +66,7 @@ function DeviceList({ history, devices: Alldevices, ...props }: P) {
         )
       })
     }
-  }, [Alldevices])
+  }, [Alldevices, handleGoController])
 
   return (
     <>
@@ -77,4 +82,4 @@ function DeviceList({ history, devices: Alldevices, ...props }: P) {
   )
 }
 
-export default withRoot(DeviceList, "start")
+export default DeviceList

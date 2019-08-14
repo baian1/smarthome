@@ -40,19 +40,37 @@ export async function getDeviceFromList() {
   }
 }
 
+function isKey<U extends object>(
+  key: string | number | symbol,
+  obj: U
+): key is keyof U {
+  return key in obj
+}
+
 export async function saveDevice(param: DevicesInterface) {
   try {
+    let body: any = {}
+    for (let key of Object.keys(param)) {
+      if (isKey(key, param)) {
+        let temp = key
+        if (key === "deviceID") {
+          body["_id"] = param[temp]
+          continue
+        }
+        body[temp] = param[temp]
+      }
+    }
     const response = await fetch(`${BASE_URL}/device/saveOne`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(param),
+      body: JSON.stringify(body),
     })
     if (response.status !== 200) {
       throw new Error("保存数据错误")
     }
-    alert("保存成功")
+    console.log("保存成功")
     return true
   } catch (e) {
     // alert(e);

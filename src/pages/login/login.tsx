@@ -27,7 +27,7 @@ function Login(props: P) {
       Loading.current = false
       return
     })
-    console.log(userID, passWord)
+    // console.log(userID, passWord)
   }, [])
 
   useEffect(() => {
@@ -49,9 +49,12 @@ function Login(props: P) {
             root.setAttribute("style", `height:${window.innerHeight}px`)
             isSetWindowHeight.current = true
           }
-          e.target.scrollIntoView({
-            block: "end",
-          })
+          let target = e.target
+          setTimeout(() => {
+            target.scrollIntoView({
+              block: "end",
+            })
+          }, 300)
         }}>
         <p>账号(userid):</p>
         <input

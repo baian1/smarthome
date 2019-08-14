@@ -19,6 +19,7 @@ export const store = createStore(
   rootStore,
   applyMiddleware(thunk as ThunkMiddleware<AppStateInterface, AllAction>)
 )
+
 async function initStore() {
   store.dispatch(userAction.saveUserID(await User.get("id")))
   store.dispatch(userAction.saveToken(await User.get("token")))

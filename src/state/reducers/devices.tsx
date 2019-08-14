@@ -31,11 +31,13 @@ const devices = (
           return item
         }
       )
+
     case "INIT_DEVICESLIST":
       if (action.devicesList === undefined) {
         return []
       }
       return action.devicesList
+
     case "SET_NORMAL":
       return state.map(
         (item): DevicesInterface => {
@@ -69,6 +71,7 @@ const devices = (
           return item
         }
       )
+
     case "DELET_DEVICE_FROM_CARD":
       state.some((item, index): boolean => {
         if (item.deviceID !== action.id) {
