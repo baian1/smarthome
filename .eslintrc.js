@@ -34,7 +34,7 @@ module.exports = {
   },
   rules: {
     indent: [2, 2, { SwitchCase: 1 }],
-    //"no-console": 0,
+    "no-console": 1,
 
     "react/jsx-uses-vars": 1,
     "react-hooks/rules-of-hooks": "error",

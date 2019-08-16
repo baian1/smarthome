@@ -1,5 +1,5 @@
 import Navbar from "components/Navbar"
-import React, { Props, useState, useCallback, useReducer, useMemo } from "react"
+import React, { Props, useState, useCallback, useMemo } from "react"
 import { History, Location } from "history"
 import { withRoot } from "components/root/root"
 import {
