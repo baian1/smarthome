@@ -5,11 +5,12 @@ const ManifestPlugin = require("webpack-manifest-plugin")
 const DashboardPlugin = require("webpack-dashboard/plugin")
 const webpack = require("webpack")
 // server worker用来保存缓存
-// const {GenerateSW} = require('workbox-webpack-plugin');
+const { InjectManifest, GenerateSW } = require("workbox-webpack-plugin")
 
 module.exports = {
   entry: {
     main: "./src/index.tsx",
+    "server-work": "./src/server-work.ts",
   },
   output: {
     filename: "[name].[chunkhash].js",
@@ -61,7 +62,13 @@ module.exports = {
     new ManifestPlugin(),
     new DashboardPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    // new GenerateSW()
+    // new GenerateSW({
+    //   swDest: "sw.js",
+    // }),
+    new InjectManifest({
+      swDest: "sw.js",
+      swSrc: "./src/sw/service-worker.js",
+    }),
   ],
   optimization: {
     splitChunks: {

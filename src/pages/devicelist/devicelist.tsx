@@ -74,7 +74,7 @@ const DeviceList: React.SFC<P> = ({
         title="设备管理"
         rightContent={"添加设备"}
         onrightClick={() => {
-          history.replace("/addDevice")
+          history.push("/addDevice")
         }}
       />
       {cardList}

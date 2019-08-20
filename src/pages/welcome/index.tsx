@@ -2,11 +2,14 @@ import React, { useCallback, Props } from "react"
 import "./welcome.less"
 import anime from "animejs"
 import withRoot from "components/root"
-import { History } from "history"
+import { History, Location } from "history"
 import { httpUser } from "api/http"
+import { match } from "react-router-dom"
 
 interface P extends Props<{}> {
   history: History
+  match: match
+  location: Location
 }
 
 let title: React.RefObject<HTMLDivElement> = React.createRef()
@@ -34,7 +37,7 @@ function Welcome(props: P) {
         props.history.push("/devicelist")
       }
     })
-  }, [])
+  }, [props.history])
 
   return (
     <>
