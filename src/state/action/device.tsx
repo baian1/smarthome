@@ -67,7 +67,9 @@ export const initDevicelist = (): ThunkAction<
     if (devicesList === null) {
       return false
     }
-    dispatch(getDeviceInit(devicesList))
+    if (devicesList.length !== 0) {
+      dispatch(getDeviceInit(devicesList))
+    }
     return true
   }
 }
