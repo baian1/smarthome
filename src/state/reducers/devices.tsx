@@ -58,13 +58,13 @@ const devices = (
                   ...item.data[action.sensor],
                   ...action.param,
                 }
-                break
+                return { ...item }
               case "Smoke Sensor":
                 item.data[action.sensor] = {
                   ...item.data[action.sensor],
                   ...action.param,
                 }
-                break
+                return { ...item }
               default:
             }
           }

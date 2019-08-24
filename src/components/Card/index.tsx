@@ -1,10 +1,7 @@
 import React, { Props, RefObject } from "react"
 import "./card.less"
 import anime from "animejs"
-import {
-  DevicesInterface,
-  SensorInterface,
-} from "rootstate/interface/devices.interface"
+import { DevicesInterface } from "rootstate/interface/devices.interface"
 
 interface P extends Props<{}> {
   device: DevicesInterface
@@ -13,8 +10,6 @@ interface P extends Props<{}> {
 
 const prefix = "card"
 const contentCenter = `${prefix}-content-center`
-
-type allSensor = keyof SensorInterface
 
 class Card extends React.PureComponent<P> {
   protected card: RefObject<HTMLDivElement>

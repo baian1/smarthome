@@ -14,7 +14,7 @@ self.addEventListener("install", event => {
     const cache = await caches.open(expectedCaches[0])
     fetch("/welcome").then(res => {
       route.forEach(item => {
-        cache.put(item, res)
+        cache.put(item, res.clone())
       })
     })
     return cache.addAll(self.__precacheManifest.map(item => item.url))

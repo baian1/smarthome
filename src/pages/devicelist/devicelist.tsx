@@ -56,6 +56,7 @@ const DeviceList: React.SFC<P> = ({
     if (Alldevices.length === 0) {
       return []
     } else {
+      console.log(Alldevices)
       return Alldevices.map(item => {
         return (
           <Card

@@ -68,16 +68,11 @@ function Controllor({
     if (res === true) {
       //history.push("/devicelist")
       history.goBack()
-      switchOnOff(
-        state.deviceID,
-        "Infrared Sensor",
-        sensorData["Infrared Sensor"]["on/off"]
-      )
-      switchOnOff(
-        state.deviceID,
-        "Shock Sensor",
-        sensorData["Shock Sensor"]["on/off"]
-      )
+      // switchOnOff(
+      //   state.deviceID,
+      //   "Shock Sensor",
+      //   sensorData["Shock Sensor"]["on/off"]
+      // )
     } else {
       alert("保存出错")
     }
