@@ -74,6 +74,7 @@
     "animejs": "^3.0.1",
     "antd-mobile": "^2.2.13",
     "jsqr": "^1.2.0",
+    "lodash": "^4.17.15",
     "paho-mqtt": "^1.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
