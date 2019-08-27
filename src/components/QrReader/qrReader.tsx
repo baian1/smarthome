@@ -1,26 +1,26 @@
 import React, { RefObject, useEffect } from "react"
-import './qrReader.less'
-import { QrReaderCover } from "./qrReaderCover";
-import { getMediaStream } from "./media";
-import Worker from "worker-loader!./Worker";
+import "./qrReader.less"
+import { QrReaderCover } from "./qrReaderCover"
+import { getMediaStream } from "./media"
+import Worker from "worker-loader!./Worker"
 
 interface P {
-  onSuccess: Function;
-  onFail?: Function;
+  onSuccess: Function
+  onFail?: Function
 }
 
 let video: RefObject<HTMLVideoElement> = React.createRef()
 
 let box = 180
 
-const prefix = 'qrReader'
+const prefix = "qrReader"
 
 function QrReader(props: P) {
   let height = window.innerHeight
   let width = window.innerWidth
 
   const worker = new Worker()
-  worker.addEventListener("message", (e) => {
+  worker.addEventListener("message", e => {
     if (e.data !== null) {
       console.log(e.data)
       props.onSuccess(e.data)
@@ -32,14 +32,24 @@ function QrReader(props: P) {
       return
     }
     let canvas = document.createElement("canvas")
-    canvas.setAttribute('height', String(200))
-    canvas.setAttribute('width', String(200))
-    let ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+    canvas.setAttribute("height", String(200))
+    canvas.setAttribute("width", String(200))
+    let ctx = canvas.getContext("2d") as CanvasRenderingContext2D
     let vidH = video.current.videoHeight
     let vidW = video.current.videoWidth
     let wid = box / width
     let hei = box / height
-    ctx.drawImage(video.current, vidW * (1 - wid) / 2, vidH * (1 - hei) / 2, vidW * wid, vidH * hei, 0, 0, 200, 200);
+    ctx.drawImage(
+      video.current,
+      (vidW * (1 - wid)) / 2,
+      (vidH * (1 - hei)) / 2,
+      vidW * wid,
+      vidH * hei,
+      0,
+      0,
+      200,
+      200
+    )
     // (video.current.parentNode as  Node&ParentNode).insertBefore(canvas,video.current)
 
     let data = ctx.getImageData(0, 0, 200, 200).data
@@ -70,7 +80,7 @@ function QrReader(props: P) {
         thisVideo.srcObject = mediaStream
         thisVideo.addEventListener("canplay", () => {
           thisVideo.play()
-          console.log('start')
+          console.log("start")
         })
       }
     }
@@ -78,7 +88,7 @@ function QrReader(props: P) {
 
     return () => {
       if (mediaStream !== null) {
-        mediaStream.getTracks().forEach((item) => {
+        mediaStream.getTracks().forEach(item => {
           if (mediaStream !== null) {
             item.stop()
             mediaStream.removeTrack(item)
@@ -88,9 +98,9 @@ function QrReader(props: P) {
     }
   })
 
-  useEffect(()=>{
-    let timer=setInterval(getImage, 500)
-    return ()=>{
+  useEffect(() => {
+    let timer = setInterval(getImage, 500)
+    return () => {
       clearInterval(timer)
       worker.terminate()
     }
@@ -98,7 +108,11 @@ function QrReader(props: P) {
 
   return (
     <div className={`${prefix}-backgroud`}>
-      <video ref={video} style={{ width, height }} className={`${prefix}-video`} />
+      <video
+        ref={video}
+        style={{ width, height }}
+        className={`${prefix}-video`}
+      />
       <QrReaderCover box={box} />
 
       {/* <div style={{ position: "absolute", top: '50%', left: '50%' }}>
@@ -106,11 +120,10 @@ function QrReader(props: P) {
         <button onClick={() => { track.stop() }} style={{ zIndex: 10 }}>stop</button>
         <button onClick={getImage}>get</button>
       </div> */}
-
     </div>
   )
 }
 
-const pureQrReader=React.memo(QrReader)
+const pureQrReader = React.memo(QrReader)
 
 export { pureQrReader as QrReader }

@@ -1,2 +1,2 @@
-import { withRoot } from './root'
-export default withRoot;
+import { withRoot } from "./root"
+export default withRoot

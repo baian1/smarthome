@@ -1,9 +1,9 @@
-import { connect } from 'react-redux';
-import { AppStateInterface } from "rootstate/reducers";
-import { ThunkDispatch } from "redux-thunk";
-import { AllAction } from "rootstate/action";
-import { AddDevice } from "./addDevice";
-import { addUserDevice } from "rootstate/action/user";
+import { connect } from "react-redux"
+import { AppStateInterface } from "rootstate/reducers"
+import { ThunkDispatch } from "redux-thunk"
+import { AllAction } from "rootstate/action"
+import { AddDevice } from "./addDevice"
+import { addUserDevice } from "rootstate/action/user"
 
 const mapStateToProps = (state: AppStateInterface) => {
   return {
@@ -11,13 +11,16 @@ const mapStateToProps = (state: AppStateInterface) => {
   }
 }
 
-export const mapDispatchToProps = (dispatch: ThunkDispatch<AppStateInterface, null, AllAction>) => {
+export const mapDispatchToProps = (
+  dispatch: ThunkDispatch<AppStateInterface, null, AllAction>
+) => {
   return {
-    addUserDevice: (user: string, device: string) => dispatch(addUserDevice(user, device)),
+    addUserDevice: (user: string, device: string) =>
+      dispatch(addUserDevice(user, device)),
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(AddDevice)

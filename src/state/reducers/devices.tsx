@@ -1,5 +1,5 @@
-import { DevicesInterface } from "rootstate/interface/devices.interface";
-import { deviceActionType } from "../action";
+import { DevicesInterface } from "rootstate/interface/devices.interface"
+import { deviceActionType } from "../action"
 
 // const deviceinit: DevicesInterface = {
 //   "deviceID": "3c:71:bf:29:a2:5b",
@@ -12,63 +12,83 @@ import { deviceActionType } from "../action";
 //   "data": { "Infrared Sensor": { "on/off": "off", "status": "normal" }, "Shock Sensor": { "on/off": "on", "status": "danger" }, "Smoke Sensor": { "on/off": "on", "status": "normal", "concentration": 1986 }, "Temperature and Humidity Sensor": { "Temperature": 28.8, "Humidity": 74 } },
 // }
 
-const devices = (state: DevicesInterface[] = [], action: deviceActionType): DevicesInterface[] => {
-  let deleteindex = -1;
+const devices = (
+  state: DevicesInterface[] = [],
+  action: deviceActionType
+): DevicesInterface[] => {
+  let deleteindex = -1
 
   switch (action.type) {
-    case 'SAVE_DEVICE_INFORMATION':
-      return state.map((item): DevicesInterface => {
-        if (action.device !== undefined && item.deviceID === action.device.deviceID) {
-          return action.device
+    case "SAVE_DEVICE_INFORMATION":
+      return state.map(
+        (item): DevicesInterface => {
+          if (
+            action.device !== undefined &&
+            item.deviceID === action.device.deviceID
+          ) {
+            return action.device
+          }
+          return item
         }
-        return item;
-      });
+      )
+
     case "INIT_DEVICESLIST":
       if (action.devicesList === undefined) {
-        return [];
+        return []
       }
-      return action.devicesList;
-    case 'SET_NORMAL':
-      return state.map((item): DevicesInterface => {
-        if (item.deviceID === action.id) {
-          item.data[action.sensor].status = 'normal';
-        }
-        return item;
-      });
-    case 'CHANGE_DEVICE_SENSOR':
-      return state.map((item): DevicesInterface => {
-        if (item.deviceID === action.id) {
-          switch (action.sensor) {
-            case 'Infrared Sensor':
-            case 'Shock Sensor':
-              item.data[action.sensor] = { ...item.data[action.sensor], ...action.param };
-              break;
-            case 'Smoke Sensor':
-              item.data[action.sensor] = { ...item.data[action.sensor], ...action.param };
-              break;
-            default:
+      return action.devicesList
+
+    case "SET_NORMAL":
+      return state.map(
+        (item): DevicesInterface => {
+          if (item.deviceID === action.id) {
+            item.data[action.sensor].status = "normal"
           }
+          return item
         }
-        return item;
-      });
-    case 'DELET_DEVICE_FROM_CARD':
+      )
+    case "CHANGE_DEVICE_SENSOR":
+      return state.map(
+        (item): DevicesInterface => {
+          if (item.deviceID === action.id) {
+            switch (action.sensor) {
+              case "Infrared Sensor":
+              case "Shock Sensor":
+                item.data[action.sensor] = {
+                  ...item.data[action.sensor],
+                  ...action.param,
+                }
+                return { ...item }
+              case "Smoke Sensor":
+                item.data[action.sensor] = {
+                  ...item.data[action.sensor],
+                  ...action.param,
+                }
+                return { ...item }
+              default:
+            }
+          }
+          return item
+        }
+      )
+
+    case "DELET_DEVICE_FROM_CARD":
       state.some((item, index): boolean => {
         if (item.deviceID !== action.id) {
-          return false;
+          return false
         } else {
-          deleteindex = index;
-          return true;
+          deleteindex = index
+          return true
         }
       })
       if (deleteindex !== -1) {
-        state.splice(deleteindex, 1);
+        state.splice(deleteindex, 1)
       }
-      return [...state];
+      return [...state]
 
     default:
-      return state;
+      return state
   }
 }
 
-
-export { devices };
+export { devices }

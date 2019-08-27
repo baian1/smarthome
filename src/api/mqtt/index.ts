@@ -1,10 +1,10 @@
-import MQTT from "paho-mqtt";
-import { store } from "../../APP";
-import { deviceAction } from "rootstate/action";
-import { sensorType } from "rootstate/interface/devices.interface";
+import MQTT from "paho-mqtt"
+import { store } from "../../APP"
+import { deviceAction } from "rootstate/action"
+import { sensorType } from "rootstate/interface/devices.interface"
 
 // Create a client instance
-export let client: MQTT.Client | null = null;
+export let client: MQTT.Client | null = null
 let subTopicDeviceID: string[] = []
 
 async function sub(client: MQTT.Client, devicesList: string[]) {
@@ -37,50 +37,56 @@ async function sub(client: MQTT.Client, devicesList: string[]) {
 // called when the client connects
 function onConnect(client: MQTT.Client, devicesList: string[]) {
   // Once a connection has been made, make a subscription and send a message.
-  console.log("onmqttConnect");
-  client.subscribe("World");
-  sub(client, devicesList);
-  let message;
-  message = new MQTT.Message("Hello");
-  message.destinationName = "World";
-  client.send(message);
+  console.log("onmqttConnect")
+  client.subscribe("World")
+  sub(client, devicesList)
+  let message
+  message = new MQTT.Message("Hello")
+  message.destinationName = "World"
+  client.send(message)
 }
 
 function onFailure() {
   // Once a connection has been made, make a subscription and send a message.
-  console.log("onFailure");
+  console.log("onFailure")
   // Alert.alert('连接服务器失败');
 }
 
 // called when the client loses its connection
 function onConnectionLost(responseObject: MQTT.MQTTError) {
   if (responseObject.errorCode !== 0) {
-    console.log("onConnectionLost:" + responseObject.errorMessage);
+    console.log("onConnectionLost:" + responseObject.errorMessage)
   }
   if (client !== null) {
-    client.connect();
+    client.connect()
   }
 }
 
 // called when a message arrives
 function onMessageArrived(message: MQTT.Message) {
-  console.log("onMessageArrived:" + message.payloadString);
-  const topic = message.destinationName.split('/');
-  let deviceID;
-  let sensor: sensorType;
+  console.log("onMessageArrived:" + message.payloadString)
+  const topic = message.destinationName.split("/")
+  let deviceID
+  let sensor: sensorType
   switch (topic.length) {
     case 3:
-      deviceID = topic[1];
-      sensor = topic[2].replace(/_/g, ' ') as sensorType;
-      store.dispatch(deviceAction.changeDeviceSensor(deviceID, sensor, JSON.parse(message.payloadString)))
-      break;
+      deviceID = topic[1]
+      sensor = topic[2].replace(/_/g, " ") as sensorType
+      store.dispatch(
+        deviceAction.changeDeviceSensor(
+          deviceID,
+          sensor,
+          JSON.parse(message.payloadString)
+        )
+      )
+      break
     default:
-      break;
+      break
   }
 }
 
 const createMQTTClient = async (devicesList: string[], userID: string) => {
-  client = new MQTT.Client("smarthome.fogmonth.xyz", 443, '/mqttwss', userID);
+  client = new MQTT.Client("smarthome.fogmonth.xyz", 443, "/mqttwss", userID)
 
   const option = {
     timeout: 10,
@@ -91,17 +97,17 @@ const createMQTTClient = async (devicesList: string[], userID: string) => {
   }
 
   if (client.isConnected()) {
-    return client;
+    return client
   }
 
   // set callback handlers
-  client.onConnectionLost = onConnectionLost;
-  client.onMessageArrived = onMessageArrived;
+  client.onConnectionLost = onConnectionLost
+  client.onMessageArrived = onMessageArrived
 
   // connect the client
-  client.connect(option);
+  client.connect(option)
 
-  return client;
+  return client
 }
 
 export const startMQTT = () => {
@@ -119,7 +125,7 @@ export const startMQTT = () => {
 
 export const disconnectMQTT = () => {
   if (client !== null) {
-    client.disconnect();
-    client = null;
+    client.disconnect()
+    client = null
   }
 }

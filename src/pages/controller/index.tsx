@@ -1,2 +1,2 @@
-import Controller from './connect';
-export default Controller;
+import Controller from "./connect"
+export default Controller

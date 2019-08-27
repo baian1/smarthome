@@ -1,4 +1,4 @@
-import alert from 'antd-mobile/lib/modal/alert';
-import 'antd-mobile/lib/modal/style/index.less'
+import alert from "antd-mobile/lib/modal/alert"
+import "antd-mobile/lib/modal/style/index.less"
 
-export default alert;
+export default alert

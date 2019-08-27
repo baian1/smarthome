@@ -1,15 +1,15 @@
-import { FetchInterceptor } from "./interceptor";
+import { FetchInterceptor } from "./interceptor"
 
 export const createFetch = (Interceptor: FetchInterceptor) => {
   return async (host: string, option?: RequestInit) => {
     if (option === undefined) {
-      option = {};
+      option = {}
     }
-    const input = await Interceptor.useReqInterceptor(host, option);
-    let response;
+    const input = await Interceptor.useReqInterceptor(host, option)
+    let response
 
-    response = fetch(input.host, input.newoption);
+    response = fetch(input.host, input.newoption)
 
-    return Interceptor.useResInterceptor(response);
+    return Interceptor.useResInterceptor(response)
   }
 }

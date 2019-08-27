@@ -1,14 +1,17 @@
 interface ScreenSize {
-  height: number;
-  width: number;
+  height: number
+  width: number
 }
 
 interface ULongRange {
-  max?: number;
-  min?: number;
+  max?: number
+  min?: number
 }
 
-export async function getMaxVideoResolutionToAdaptationScreen(track: MediaStreamTrack, screen: ScreenSize): Promise<void> {
+export async function getMaxVideoResolutionToAdaptationScreen(
+  track: MediaStreamTrack,
+  screen: ScreenSize
+): Promise<void> {
   if (track.kind !== "video") {
     throw new Error(`媒体类型必须是video,你输入了错误的类型${track.kind}`)
   }
@@ -16,7 +19,7 @@ export async function getMaxVideoResolutionToAdaptationScreen(track: MediaStream
 
   let maxCameraResolution = {
     width: (range.width as ULongRange).max as number,
-    height: (range.height as ULongRange).max as number
+    height: (range.height as ULongRange).max as number,
   }
 
   //相机分辨率长宽是手机横着的时候的长宽,为了方便计算,我们对其进行交换
@@ -40,20 +43,23 @@ export async function getMaxVideoResolutionToAdaptationScreen(track: MediaStream
 }
 
 interface FacingMode {
-  exact: "user" | "environment" | "left" | "right";
+  exact: "user" | "environment" | "left" | "right"
 }
 
 type getVal<T> = T[keyof T]
 
-async function chooseCamera(facingMode: getVal<FacingMode> | FacingMode, deviceID: string | undefined) {
+async function chooseCamera(
+  facingMode: getVal<FacingMode> | FacingMode,
+  deviceID: string | undefined
+) {
   if (deviceID === undefined) {
     return {
-      facingMode
+      facingMode,
     }
   }
-  let CameraList: MediaDeviceInfo[] = [];
-  await navigator.mediaDevices.enumerateDevices().then((devices) => {
-    devices.forEach((device) => {
+  let CameraList: MediaDeviceInfo[] = []
+  await navigator.mediaDevices.enumerateDevices().then(devices => {
+    devices.forEach(device => {
       if (device.kind === "videoinput") {
         CameraList.push(device)
       }
@@ -63,31 +69,37 @@ async function chooseCamera(facingMode: getVal<FacingMode> | FacingMode, deviceI
   for (let Camera of CameraList) {
     if (Camera.deviceId === deviceID) {
       return {
-        deviceID
+        deviceID,
       }
     }
   }
 
-  throw new Error('不能选择合适的相机')
+  throw new Error("不能选择合适的相机")
 }
 
-export async function getMediaStream(facingMode: getVal<FacingMode> | FacingMode = "environment", deviceID?: string) {
+export async function getMediaStream(
+  facingMode: getVal<FacingMode> | FacingMode = "environment",
+  deviceID?: string
+) {
   let height = window.innerHeight
   let width = window.innerWidth
   let constraints = {
     audio: false,
     video: {
-      ...await chooseCamera(facingMode, deviceID)
-      // facingMode: { exact: "environment" } "user" 
-    }
+      ...(await chooseCamera(facingMode, deviceID)),
+      // facingMode: { exact: "environment" } "user"
+    },
   }
   try {
     let mediaStream = await navigator.mediaDevices.getUserMedia(constraints)
     let track = mediaStream.getVideoTracks()[0]
-    getMaxVideoResolutionToAdaptationScreen(track, { height, width }).then(() => { console.log(track.getSettings()) })
+    getMaxVideoResolutionToAdaptationScreen(track, { height, width }).then(
+      () => {
+        console.log(track.getSettings())
+      }
+    )
     return mediaStream
-  }
-  catch (err) {
+  } catch (err) {
     console.warn(err.name + ": " + err.message)
     return null
   }

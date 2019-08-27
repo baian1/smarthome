@@ -1,8 +1,8 @@
-import AMap from "amap-js-sdk";
+import AMap from "amap-js-sdk"
 
 export let isLoadAMap = {
-  status: false
-};
+  status: false,
+}
 
 function loadingJS(url: string, onload: Function, error?: Function) {
   let script = document.createElement("script")
@@ -10,7 +10,7 @@ function loadingJS(url: string, onload: Function, error?: Function) {
     onload(window.AMap)
     isLoadAMap.status = true
   })
-  script.addEventListener("error", (e) => {
+  script.addEventListener("error", e => {
     if (error) {
       error(e)
     } else {
@@ -27,16 +27,18 @@ export async function loadAMap(): Promise<null | typeof AMap> {
     if (Object.keys(AMap).length !== 0) {
       return AMap
     }
-    let resulte: any
-    resulte = await new Promise((resolve) => {
+    let resulted: any
+    resulted = await new Promise(resolve => {
       const onload = (value: any) => {
         resolve(value)
       }
-      loadingJS("https://webapi.amap.com/maps?v=1.4.14&key=b15278a411c3c418799315efe939b534", onload)
+      loadingJS(
+        "https://webapi.amap.com/maps?v=1.4.14&key=b15278a411c3c418799315efe939b534",
+        onload
+      )
     })
-    return resulte
-  }
-  catch (e) {
+    return resulted
+  } catch (e) {
     console.error(e)
     return null
   }

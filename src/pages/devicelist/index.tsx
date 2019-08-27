@@ -1,3 +1,4 @@
-import deviceList from './connect';
+import deviceList from "./connect"
+import withRoot from "components/root"
 
-export default deviceList;
+export default withRoot(deviceList, "start")
