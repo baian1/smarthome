@@ -1,13 +1,13 @@
 import Navbar from "components/Navbar"
 import React, { Props, useState, useCallback, useMemo } from "react"
 import { History, Location } from "history"
-import { withRoot } from "components/root/root"
+import { withRoot } from "components/Root/root"
 import {
   DevicesInterface,
   sensorType,
 } from "rootstate/interface/devices.interface"
 import Alert from "components/alert"
-import { Reset, switchOnOff } from "api/mqtt/send"
+import { Reset } from "api/mqtt/send"
 import { SensorToNormalPart } from "./part/parts/SensorToNormalPart"
 import { SensorSwitchPart } from "./part/parts/SensorSwitchPart"
 import { AddressPart } from "./part/parts/AddressPart"

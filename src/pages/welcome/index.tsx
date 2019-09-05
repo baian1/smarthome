@@ -1,7 +1,7 @@
 import React, { useCallback, Props } from "react"
 import "./welcome.less"
 import anime from "animejs"
-import withRoot from "components/root"
+import withRoot from "components/Root"
 import { History, Location } from "history"
 import { httpUser } from "api/http"
 import { match } from "react-router-dom"

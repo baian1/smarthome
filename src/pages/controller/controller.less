@@ -29,7 +29,21 @@
       width: 200px;
       flex-grow: 1;
       overflow-x: scroll;
+      overflow-y: hidden;
       white-space: nowrap;
+      &::-webkit-scrollbar:horizontal {
+        width: 2px;
+        height: 2px;
+        background-color: #f5f5f5;
+      }
+      &::-webkit-scrollbar-track:horizontal {
+        border-radius: 2px;
+        background-color: #f5f5f5;
+      }
+      &::-webkit-scrollbar-thumb:horizontal {
+        border-radius: 2px;
+        background-color: #555;
+      }
     }
   }
 

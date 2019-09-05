@@ -7,7 +7,7 @@ const Controller = lazy(() =>
 )
 const DevicesList = lazy(() =>
   import(
-    /* webpackPrefetch: true,webpackChunkName: "Devicelist" */ "./DeviceList"
+    /* webpackPrefetch: true,webpackChunkName: "Devicelist" */ "./Devicelist"
   )
 )
 const Login = lazy(() =>

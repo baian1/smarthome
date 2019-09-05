@@ -1,7 +1,7 @@
 import React, { Suspense } from "react"
 import { Route, Switch, RouteComponentProps } from "react-router-dom"
 
-import Welcome from "./pages/welcome"
+import Welcome from "./pages/Welcome"
 // import Login from './pages/login'
 // import DeviceList from "./pages/deviceList"
 // import Controller from './pages/controller';
@@ -34,41 +34,39 @@ class App extends React.Component {
   public render(): JSX.Element {
     return (
       <Provider store={store}>
-        <Route>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <Switch>
-              {/* <Route path='/login' render={(props: RouteComponentProps<any, StaticContext, any>) => <Login {...props} />} />
+        <Suspense fallback={<LoadingPlaceholder />}>
+          <Switch>
+            {/* <Route path='/login' render={(props: RouteComponentProps<any, StaticContext, any>) => <Login {...props} />} />
               <Route path='/deviceList' component={DeviceList} />
               <Route path='/controller' component={Controller} />
               <Route path='/' component={Welcome} /> */}
-              <Route
-                path="/login"
-                render={(
-                  props: RouteComponentProps<{}, StaticContext, any>
-                ) => <AsyncComponent componentName="Login" {...props} />}
-              />
-              <Route
-                path="/devicelist"
-                render={(
-                  props: RouteComponentProps<{}, StaticContext, any>
-                ) => <AsyncComponent componentName="DevicesList" {...props} />}
-              />
-              <Route
-                path="/controller"
-                render={(
-                  props: RouteComponentProps<{}, StaticContext, any>
-                ) => <AsyncComponent componentName="Controller" {...props} />}
-              />
-              <Route path="/welcome" component={Welcome} />
-              <Route
-                path="/addDevice"
-                render={(
-                  props: RouteComponentProps<{}, StaticContext, any>
-                ) => <AsyncComponent componentName="AddDevice" {...props} />}
-              />
-            </Switch>
-          </Suspense>
-        </Route>
+            <Route
+              path="/login"
+              render={(props: RouteComponentProps<{}, StaticContext, any>) => (
+                <AsyncComponent componentName="Login" {...props} />
+              )}
+            />
+            <Route
+              path="/devicelist"
+              render={(props: RouteComponentProps<{}, StaticContext, any>) => (
+                <AsyncComponent componentName="DevicesList" {...props} />
+              )}
+            />
+            <Route
+              path="/controller"
+              render={(props: RouteComponentProps<{}, StaticContext, any>) => (
+                <AsyncComponent componentName="Controller" {...props} />
+              )}
+            />
+            <Route path="/welcome" component={Welcome} />
+            <Route
+              path="/addDevice"
+              render={(props: RouteComponentProps<{}, StaticContext, any>) => (
+                <AsyncComponent componentName="AddDevice" {...props} />
+              )}
+            />
+          </Switch>
+        </Suspense>
       </Provider>
     )
   }

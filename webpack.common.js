@@ -13,7 +13,7 @@ module.exports = {
     "server-work": "./src/server-work.ts",
   },
   output: {
-    filename: "[name].[chunkhash].js",
+    filename: "[name].[chunkhash].bundle.js",
     chunkFilename: "[name].[chunkhash].js",
     path: path.join(__dirname, "/dist"),
     publicPath: "/",
